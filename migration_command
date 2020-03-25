@@ -1,0 +1,45 @@
+ALTER TABLE `sma_sales` ADD `repair_status` TINYINT(1) NOT NULL DEFAULT '0' AFTER `repair_note`;
+
+CREATE TABLE `sma_repair_history` (
+ `id` int(11) NOT NULL AUTO_INCREMENT,
+ `created_date` datetime default NULL,
+ `updated_date` datetime default NULL,
+ `created_by` int(9) DEFAULT NULL,
+ `updated_by` int(9) DEFAULT NULL,
+ `sale_id` int(11) NOT NULL,
+ `repair_note` varchar(500) DEFAULT NULL,
+ `repair_status` varchar(500) DEFAULT NULL,
+ PRIMARY KEY (`id`),
+ KEY `id` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8
+
+
+
+ALTER TABLE `sma_gift_card_topups` ADD `award_point` INT(11) NULL DEFAULT NULL AFTER `created_by`;
+
+ALTER TABLE `sma_gift_cards` ADD `award_point` INT(11) NULL DEFAULT NULL AFTER `created_by`;
+
+
+ALTER TABLE `sma_warehouses` ADD `principal` VARCHAR(100) NOT NULL AFTER `price_group_id`;
+ALTER TABLE `sma_warehouses` ADD `gcp` VARCHAR(100) NOT NULL AFTER `price_group_id`;
+ALTER TABLE `sma_warehouses` ADD `zonal_representative` VARCHAR(100) NOT NULL AFTER `price_group_id`;
+ALTER TABLE `sma_warehouses` ADD `home_ground` VARCHAR(100) default NULL AFTER `price_group_id`;
+
+ALTER TABLE `sma_users` ADD `zone` VARCHAR(50) NULL DEFAULT NULL AFTER `allow_discount`;
+ALTER TABLE `sma_users` ADD `division` INT(9) NULL DEFAULT NULL AFTER `zone`;
+
+ALTER TABLE `sma_players` CHANGE `sessions` `sessions` VARCHAR(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL;
+
+ALTER TABLE `sma_players` ADD `p_status` VARCHAR(50) NOT NULL DEFAULT 'Pending' ;
+ALTER TABLE `sma_players` ADD `status_updated_date` DATETIME NULL DEFAULT NULL ;
+ALTER TABLE `sma_players` ADD `status_updated_by` INT(9) NULL DEFAULT NULL ;
+
+ALTER TABLE `sma_coaches` ADD `c_status` VARCHAR(50) NOT NULL DEFAULT 'Pending' ;
+ALTER TABLE `sma_coaches` ADD `status_updated_date` DATETIME NULL DEFAULT NULL ;
+ALTER TABLE `sma_coaches` ADD `status_updated_by` INT(9) NULL DEFAULT NULL ;
+
+ALTER TABLE `sma_players` ADD `document` VARCHAR(100)  NULL DEFAULT NULL ;
+ALTER TABLE `sma_players` ADD `note` VARCHAR(200)  NULL DEFAULT NULL ;
+
+ALTER TABLE `sma_coaches` ADD `document` VARCHAR(100)  NULL DEFAULT NULL ;
+ALTER TABLE `sma_coaches` ADD `note` VARCHAR(200)  NULL DEFAULT NULL ;
