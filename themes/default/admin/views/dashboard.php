@@ -97,7 +97,7 @@ foreach ($zone_female_history as $zones_m) {
                 data: [<?php echo $m_central.",".$m_east.",".$m_north.",".$m_south.",".$m_tobago; ?>]
 
             }, {
-                name: 'Rotary',
+                name: 'Notary',
                 data: [<?php echo $f_central.",".$f_east.",".$f_north.",".$f_south.",".$f_tobago; ?>]
 
             }]
@@ -122,30 +122,31 @@ foreach ($zone_female_history as $zones_m) {
 
         <div class="col-sm-3">
             <div class="small-box padding1010 bdarkGreen">
-                <h2 class="bold" style="color: white"><?= lang('Total_Players') ?></h2>
+                <h2 class="bold" style="color: white"><?= lang('Total_Jobs') ?></h2>
                 <i class="icon fa fa-heart"></i>
 
                 <h1 class="bold">&nbsp;&nbsp;</h1>
 
                 <p class="bold">
-                <h1 style="text-align: center;color: white;"><?= $total_players->total ? $total_players->total : 0 ?></h1></p>
+                <h1 style="text-align: center;color: white;"><?= $total_coaches->total ? $total_coaches->total : 0 ?></h1></p>
             </div>
         </div>
         <div class="col-sm-3">
             <div class="small-box padding1010 bpurple">
-                <h2 class="bold" style="color: white"><?= lang('Total_Coaches') ?></h2>
+                <h2 class="bold" style="color: white"><?= lang('Total_Client') ?></h2>
                 <i class="icon fa fa-star"></i>
 
                 <h1 class="bold">&nbsp;&nbsp;</h1>
 
                 <p class="bold">
-                <h1 style="text-align: center;color: white;"><?= $total_coaches->total ? $total_coaches->total : 0 ?></h1></p>
+
+                <h1 style="text-align: center;color: white;"><?= $total_clients->total ? $total_clients->total : 0 ?></h1></p>
 
             </div>
         </div>
         <div class="col-sm-3">
             <div class="small-box padding1010 " style="background-color: #ffc582">
-                <h2 class="bold" style="color: white"><?= lang('Total_Schools') ?></h2>
+                <h2 class="bold" style="color: white"><?= lang('Total_Notary') ?></h2>
                 <i class="icon fa fa-plus-circle"></i>
 
                 <h1 class="bold">&nbsp;&nbsp;</h1>
@@ -191,14 +192,8 @@ foreach ($zone_female_history as $zones_m) {
                             <?php if ($Owner || $Admin || $GP['users-index']) { ?>
                                 <li class=""><a href="#sales"><?= lang('Users') ?></a></li>
                             <?php }
-                            if ($Owner || $Admin || $GP['coaches-index']) { ?>
-                                <li class=""><a href="#coaches"><?= lang('Coaches') ?></a></li>
-                            <?php }
-                            if ($Owner || $Admin || $GP['players-index']) { ?>
-                                <li class=""><a href="#players"><?= lang('Players') ?></a></li>
-                            <?php }
-                            if ($Owner || $Admin || $GP['teams-index']) { ?>
-                                <li class=""><a href="#teams"><?= lang('Schools') ?></a></li>
+                            if ($Owner || $Admin || $GP['clients-index']) { ?>
+                                <li class=""><a href="#players"><?= lang('Clients') ?></a></li>
                             <?php }
                             ?>
                         </ul>
@@ -218,7 +213,6 @@ foreach ($zone_female_history as $zones_m) {
                                                         <th style="width:30px !important;">#</th>
                                                         <th><?= $this->lang->line("Full_Name"); ?></th>
                                                         <th><?= $this->lang->line("User_Name"); ?></th>
-                                                        <th><?= $this->lang->line("Gender"); ?></th>
                                                         <th><?= $this->lang->line("Email"); ?></th>
                                                         <th><?= $this->lang->line("Phone"); ?></th>
                                                     </tr>
@@ -230,7 +224,6 @@ foreach ($zone_female_history as $zones_m) {
                                                             echo '<tr><td>' . $r . '</td>
                                                             <td>' . $user->first_name . ' ' . $user->last_name . '</td>
                                                             <td>' . $user->username . '</td>
-                                                            <td>' . $user->gender . '</td>
                                                             <td>' . $user->email . '</td>
                                                             <td>' . $user->phone . '</td>
                                                         </tr>';
@@ -250,7 +243,7 @@ foreach ($zone_female_history as $zones_m) {
                                 </div>
 
                             <?php }
-                            if ($Owner || $Admin || $GP['coaches-index']) { ?>
+                            if ($Owner || $Admin ) { ?>
 
                                 <div id="coaches" class="tab-pane fade">
                                     <div class="row">
@@ -264,9 +257,8 @@ foreach ($zone_female_history as $zones_m) {
                                                         <th style="width:30px !important;">#</th>
                                                         <th><?= $this->lang->line("Full_Name"); ?></th>
                                                         <th><?= $this->lang->line("User_Name"); ?></th>
-                                                        <th><?= $this->lang->line("Gender"); ?></th>
-                                                        <th><?= $this->lang->line("School"); ?></th>
-                                                        <th><?= $this->lang->line("Zone"); ?></th>
+                                                        <th><?= $this->lang->line("Email"); ?></th>
+                                                        <th><?= $this->lang->line("Phone"); ?></th>
                                                     </tr>
                                                     </thead>
                                                     <tbody>
@@ -276,7 +268,6 @@ foreach ($zone_female_history as $zones_m) {
                                                             echo '<tr><td>' . $r . '</td>
                                                             <td>' . $coach->first_name . ' ' . $coach->last_name . '</td>
                                                             <td>' . $coach->username . '</td>
-                                                            <td>' . $coach->gender . '</td>
                                                             <td>' . $coach->wname . '</td>
                                                             <td>' . $coach->zone . '</td>
                                                     </tr>';
@@ -296,7 +287,7 @@ foreach ($zone_female_history as $zones_m) {
                                 </div>
 
                             <?php }
-                            if ($Owner || $Admin || $GP['players-index']) { ?>
+                            if ($Owner || $Admin || $GP['clients-index']) { ?>
 
                                 <div id="players" class="tab-pane fade in">
                                     <div class="row">
@@ -309,11 +300,9 @@ foreach ($zone_female_history as $zones_m) {
                                                     <tr>
                                                         <th style="width:30px !important;">#</th>
                                                         <th><?= $this->lang->line("Full_Name"); ?></th>
-                                                        <th><?= $this->lang->line("Gender"); ?></th>
-                                                        <th><?= $this->lang->line("Date_Of_Birth"); ?></th>
-                                                        <th><?= $this->lang->line("Birth_Certificate_Pin"); ?></th>
-                                                        <th><?= $this->lang->line("School"); ?></th>
-                                                    </tr>
+                                                        <th><?= $this->lang->line("User_Name"); ?></th>
+                                                        <th><?= $this->lang->line("Email"); ?></th>
+                                                        <th><?= $this->lang->line("Phone"); ?></th> </tr>
                                                     </thead>
                                                     <tbody>
                                                     <?php if (!empty($players)) {
@@ -321,7 +310,6 @@ foreach ($zone_female_history as $zones_m) {
                                                         foreach ($players as $player) {
                                                             echo '<tr><td>' . $r . '</td>
                                                             <td>' . $player->first_name . ' ' . $player->last_name . '</td>
-                                                            <td>' . $player->gender . '</td>
                                                             <td>' . $this->sma->hrsd($player->dob) . '</td>
                                                             <td>' . $player->bcp . '</td>
                                                             <td>' . $player->wname . '</td>
@@ -342,7 +330,7 @@ foreach ($zone_female_history as $zones_m) {
                                 </div>
 
                             <?php }
-                            if ($Owner || $Admin || $GP['teams-index']) { ?>
+                            if ($Owner || $Admin ) { ?>
 
                                 <div id="teams" class="tab-pane fade">
                                     <div class="row">

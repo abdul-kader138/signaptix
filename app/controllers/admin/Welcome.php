@@ -29,11 +29,11 @@ class Welcome extends MY_Controller
 
         $this->data['error'] = (validation_errors() ? validation_errors() : $this->session->flashdata('error'));
         $this->data['users'] = $this->db_model->getLatestUsers();
-        $this->data['players'] = $this->db_model->getLatestPlayers();
+        $this->data['Clients'] = $this->db_model->getLatestClients();
         $this->data['coaches'] = $this->db_model->getLatestCoaches();
         $this->data['schools'] = $this->db_model->getLatestSchools();
         $this->data['total_users'] = $this->db_model->getTotalUsers();
-        $this->data['total_players'] = $this->db_model->getTotalPlayers();
+        $this->data['total_clients'] = $this->db_model->getTotalClients();
         $this->data['total_coaches'] = $this->db_model->getTotalCoaches();
         $this->data['total_schools'] = $this->db_model->getTotalSchools();
         $this->data['zone_male_history'] = $this->db_model->getZoneMaleHistory();

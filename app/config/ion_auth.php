@@ -24,6 +24,7 @@ $config['use_mongodb'] = FALSE;
 $config['collections']['users']          = 'users';
 $config['collections']['groups']         = 'groups';
 $config['collections']['login_attempts'] = 'login_attempts';
+//$config['collections']['clients'] = 'clients';
 
 /*
 | -------------------------------------------------------------------------
@@ -83,7 +84,7 @@ $config['max_rounds']     = 9;
  */
 $config['site_title']                 = "Online Registration System";       // Site Title, example.com This is not more functional
 $config['admin_email']                = "codelover138@gmail.com"; // Admin Email, admin@example.com This is not more functional
-$config['default_group']              = 'customer';         // Default group, use name
+$config['default_group']              = 'client';         // Default group, use name
 $config['admin_group']                = 'admin';            // Default administrators group, use name
 $config['identity']                   = 'email';            // A database column which is used to login with
 $config['min_password_length']        = 8;                  // Minimum Required Length of Password

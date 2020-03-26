@@ -21,6 +21,7 @@ class MY_Controller extends CI_Controller {
             $this->Settings->user_rtl = $this->Settings->rtl;
         }
         $this->theme = $this->Settings->theme.'/admin/views/';
+//        $this->theme = 'themes/default'.'/admin/views/';
         if(is_dir(VIEWPATH.$this->Settings->theme.DIRECTORY_SEPARATOR.'admin'.DIRECTORY_SEPARATOR.'assets'.DIRECTORY_SEPARATOR)) {
             $this->data['assets'] = base_url() . 'themes/' . $this->Settings->theme . '/admin/assets/';
         } else {
@@ -36,12 +37,8 @@ class MY_Controller extends CI_Controller {
             $this->data['default_currency'] = $this->default_currency;
             $this->Owner = $this->sma->in_group('owner') ? TRUE : NULL;
             $this->data['Owner'] = $this->Owner;
-            $this->Teams = $this->sma->in_group('teams') ? TRUE : NULL;
-            $this->data['Teams'] = $this->Teams;
-            $this->Players = $this->sma->in_group('players') ? TRUE : NULL;
-            $this->data['Players'] = $this->Players;
-            $this->Coaches = $this->sma->in_group('coaches') ? TRUE : NULL;
-            $this->data['Coaches'] = $this->Coaches;
+            $this->Clients = $this->sma->in_group('clients') ? TRUE : NULL;
+            $this->data['Clients'] = $this->Clients;
             $this->Admin = $this->sma->in_group('admin') ? TRUE : NULL;
             $this->data['Admin'] = $this->Admin;
 
@@ -109,8 +106,7 @@ class MY_Controller extends CI_Controller {
         $meta['ip_address'] = $this->input->ip_address();
         $meta['Owner'] = $data['Owner'];
         $meta['Admin'] = $data['Admin'];
-        $meta['Players'] = $data['Players'];
-        $meta['Coaches'] = $data['Coaches'];
+        $meta['Clients'] = $data['Clients'];
         $meta['Settings'] = $data['Settings'];
         $meta['dateFormats'] = $data['dateFormats'];
         $meta['assets'] = $data['assets'];

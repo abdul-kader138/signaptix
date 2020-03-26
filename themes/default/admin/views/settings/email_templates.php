@@ -18,7 +18,7 @@
                                         class="caret"></b></a>
                                 <ul aria-labelledby="more" role="menu" class="dropdown-menu">
                                     <li class=""><a href="#sale"><?= lang('Coach') ?></a></li>
-                                    <li class=""><a href="#quote"><?= lang('Players') ?></a></li>
+                                    <li class=""><a href="#quote"><?= lang('Clients') ?></a></li>
 <!--                                    <li class=""><a href="#purchase">--><?//= lang('purchase') ?><!--</a></li>-->
 <!--                                    <li class=""><a href="#transfer">--><?//= lang('transfer') ?><!--</a></li>-->
 <!--                                    <li class=""><a href="#payment">--><?//= lang('payment') ?><!--</a></li>-->

@@ -7,7 +7,7 @@
                 <div style="max-width:200px; margin: 0 auto;">
                     <?=
                     $user->avatar ? '<img alt="" src="' . base_url() . 'assets/uploads/avatars/thumbs/' . $user->avatar . '" class="avatar">' :
-                        '<img alt="" src="' . base_url() . 'assets/images/' . $user->gender . '.png" class="avatar">';
+                        '<img alt="" src="' . base_url() . 'assets/images/male.png" class="avatar">';
                     ?>
                 </div>
                 <h4><?= lang('login_email'); ?></h4>
@@ -20,9 +20,8 @@
     <div class="col-sm-10">
 
         <ul id="myTab" class="nav nav-tabs">
-            <li class=""><a href="#edit" class="tab-grey"><?= lang('edit') ?></a></li>
             <li class=""><a href="#cpassword" class="tab-grey"><?= lang('change_password') ?></a></li>
-            <li class=""><a href="#avatar" class="tab-grey"><?= lang('avatar') ?></a></li>
+            <li class=""><a href="#avatar" class="tab-grey"><?= lang('Change_Image') ?></a></li>
         </ul>
 
         <div class="tab-content">
@@ -259,7 +258,7 @@
                                     </div>
                                     <?php echo admin_form_open_multipart("auth/update_avatar"); ?>
                                     <div class="form-group">
-                                        <?= lang("change_avatar", "change_avatar"); ?>
+                                        <?= lang("Change_Image", "Change_Image"); ?>
                                         <input type="file" data-browse-label="<?= lang('browse'); ?>" name="avatar" id="product_image" required="required"
                                                data-show-upload="false" data-show-preview="false" accept="image/*"
                                                class="form-control file"/>
@@ -267,7 +266,7 @@
                                     <div class="form-group">
                                         <?php echo form_hidden('id', $id); ?>
                                         <?php echo form_hidden($csrf); ?>
-                                        <?php echo form_submit('update_avatar', lang('update_avatar'), 'class="btn btn-primary"'); ?>
+                                        <?php echo form_submit('update_avatar', lang('Update_Image'), 'class="btn btn-primary"'); ?>
                                         <?php echo form_close(); ?>
                                     </div>
 

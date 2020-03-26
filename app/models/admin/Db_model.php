@@ -31,20 +31,13 @@ class Db_model extends CI_Model
     }
 
 
-    public function getTotalPlayers()
+    public function getTotalClients()
     {
 
-        $user_details=$this->getUserByID($this->session->userdata('user_id'));
-        $zone_id = null;
-        $division_id = null;
-        if (!$this->Owner && !$this->Admin && $user_details->zone) $zone_id = $user_details->zone;
-        if (!$this->Owner && !$this->Admin && $user_details->division) $division_id = $user_details->division;
 
         $this->db->select('count(id) as total', FALSE);
-        if (!$this->Owner && !$this->Admin)  $this->db->where('players.school_id', $this->session->userdata('warehouse_id'));
-        if($zone_id) $this->db->where('players.zone',$zone_id);
-        if($division_id) $this->db->where('players.division',$division_id);
-        $q = $this->db->get('players');
+        if (!$this->Owner && !$this->Admin)  $this->db->where('users.id', $this->session->userdata('user_id'));
+        $q = $this->db->get('users');
         if ($q->num_rows() > 0) {
             return $q->row();
         }
@@ -78,7 +71,7 @@ class Db_model extends CI_Model
 
     }
 
-    public function getLatestPlayers()
+    public function getLatestClients()
     {
 
         $warehouse_id = null;
@@ -92,14 +85,10 @@ class Db_model extends CI_Model
         if (!$this->Owner && !$this->Admin && $user_details->zone) $zone_id = $user_details->zone;
         if (!$this->Owner && !$this->Admin && $user_details->division) $division_id = $user_details->division;
 
-        $this->db->select('players.*,warehouses.name as wname')
-            ->from('players')
-            ->join('users', 'users.username = players.username', 'inner')
-            ->join('warehouses', 'warehouses.id = players.school_id', 'inner')
+        $this->db->select('clients.*,users.first_name as wname')
+            ->from('Clients')
+            ->join('users', 'users.username = clients.user_id', 'inner')
             ->limit(5);
-        if ($warehouse_id) $this->db->where('users.warehouse_id', $warehouse_id);
-        if($zone_id) $this->db->where('users.zone',$zone_id);
-        if($division_id) $this->db->where('users.division',$division_id);
         $this->db->order_by('users.id', 'desc');
         $q = $this->db->get();
         if ($q->num_rows() > 0) {
@@ -228,12 +217,9 @@ class Db_model extends CI_Model
         }
         if($zone_id) $this->db->where('zone',$zone_id);
         $this->db
-            ->select("zone,COUNT(id) as id")
+            ->select("company_name,COUNT(id) as id")
 //            ->select_count('id')
-            ->from('players')
-            ->where('gender','Male')
-            ->group_by('zone')
-            ->order_by('zone', 'asc')
+            ->from('Clients')
             ->limit(10);
         $q = $this->db->get();
         if ($q->num_rows() > 0) {
@@ -260,12 +246,9 @@ class Db_model extends CI_Model
         }
         if($zone_id) $this->db->where('zone',$zone_id);
         $this->db
-            ->select("zone,COUNT(id) as id")
+            ->select("company_name,COUNT(id) as id")
 //            ->select_count('id')
-            ->from('players')
-            ->where('gender','Female')
-            ->group_by('zone')
-            ->order_by('zone', 'asc')
+            ->from('Clients')
             ->limit(10);
         $q = $this->db->get();
         if ($q->num_rows() > 0) {

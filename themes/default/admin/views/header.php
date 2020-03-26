@@ -190,94 +190,32 @@
                                                 </li>
                                             </ul>
                                         </li>
-                                        <li class="mm_teams">
-                                            <a class="dropmenu" href="#">
-                                                <i class="fa fa-circle"></i>
-                                                <span class="text"> <?= lang('Team_Managers'); ?> </span>
-                                                <span class="chevron closed"></span>
-                                            </a>
-                                            <ul>
-                                                <li id="teams_index">
-                                                    <a class="submenu"
-                                                       href="<?= admin_url('teams'); ?>">
-                                                        <i class="fa fa-users"></i><span
-                                                                class="text"> <?= lang('List_Team_Manager'); ?></span>
-                                                    </a>
-                                                </li>
-                                                <li id="teams_add">
-                                                    <a class="submenu"
-                                                       href="<?= admin_url('teams/add'); ?>">
-                                                        <i class="fa fa-plus-circle"></i><span
-                                                                class="text"> <?= lang('Add_Team_Manager'); ?></span>
-                                                    </a>
-                                                </li>
-                                            </ul>
-                                        </li>
-
-                                        <li class="mm_system_settings">
-                                            <a class="dropmenu" href="#">
-                                                <i class="fa fa-industry"></i>
-                                                <span class="text"> <?= lang('School'); ?> </span>
-                                                <span class="chevron closed"></span>
-                                            </a>
-                                            <ul>
-                                                <li id="system_settings_warehouses">
-                                                    <a href="<?= admin_url('system_settings/warehouses') ?>">
-                                                        <i class="fa fa-building-o"></i><span
-                                                                class="text"> <?= lang('School'); ?></span>
-                                                    </a>
-                                                </li>
-                                            </ul>
-                                        </li>
 
 
-                                        <li class="mm_players">
+                                        <li class="mm_clients">
                                             <a class="dropmenu" href="#">
                                                 <i class="fa fa-user-md"></i>
-                                                <span class="text"> <?= lang('Players'); ?> </span>
+                                                <span class="text"> <?= lang('Clients'); ?> </span>
                                                 <span class="chevron closed"></span>
                                             </a>
                                             <ul>
-                                                <li id="players_index">
+                                                <li id="clients_index">
                                                     <a class="submenu"
-                                                       href="<?= admin_url('players'); ?>">
+                                                       href="<?= admin_url('clients'); ?>">
                                                         <i class="fa fa-users"></i><span
-                                                                class="text"> <?= lang('List_Players'); ?></span>
+                                                                class="text"> <?= lang('List_Clients'); ?></span>
                                                     </a>
                                                 </li>
-                                                <li id="players_add">
+                                                <li id="clients_add">
                                                     <a class="submenu"
-                                                       href="<?= admin_url('players/add'); ?>">
+                                                       href="<?= admin_url('clients/add'); ?>">
                                                         <i class="fa fa-user-plus"></i><span
-                                                                class="text"> <?= lang('Add_Player'); ?></span>
+                                                                class="text"> <?= lang('Add_Client'); ?></span>
                                                     </a>
                                                 </li>
                                             </ul>
                                         </li>
 
-                                        <li class="mm_coaches">
-                                            <a class="dropmenu" href="#">
-                                                <i class="fa fa-user-md"></i>
-                                                <span class="text"> <?= lang('Coaches'); ?> </span>
-                                                <span class="chevron closed"></span>
-                                            </a>
-                                            <ul>
-                                                <li id="coaches_index">
-                                                    <a class="submenu"
-                                                       href="<?= admin_url('coaches'); ?>">
-                                                        <i class="fa fa-users"></i><span
-                                                                class="text"> <?= lang('List_Coaches'); ?></span>
-                                                    </a>
-                                                </li>
-                                                <li id="coaches_add">
-                                                    <a class="submenu"
-                                                       href="<?= admin_url('coaches/add'); ?>">
-                                                        <i class="fa fa-user-plus"></i><span
-                                                                class="text"> <?= lang('Add_Coach'); ?></span>
-                                                    </a>
-                                                </li>
-                                            </ul>
-                                        </li>
                                         <li class="mm_notifications">
                                             <a class="submenu" href="<?= admin_url('notifications'); ?>">
                                                 <i class="fa fa-info-circle"></i><span
@@ -285,27 +223,6 @@
                                             </a>
                                         </li>
 
-                                        <li class="mm_registration">
-                                            <a class="dropmenu" href="#">
-                                                <i class="fa fa-check-circle"></i>
-                                                <span class="text"> <?= lang('Registration'); ?> </span>
-                                                <span class="chevron closed"></span>
-                                            </a>
-                                            <ul>
-                                                <li id="registration_index">
-                                                    <a class="submenu" href="<?= admin_url('registration'); ?>">
-                                                        <i class="fa fa-check-circle"></i><span
-                                                                class="text"> <?= lang('List_Registration'); ?></span>
-                                                    </a>
-                                                </li>
-                                                <li id="registration_registration_group">
-                                                    <a class="submenu" href="<?= admin_url('registration/registration_group'); ?>">
-                                                        <i class="fa fa-plus"></i><span
-                                                                class="text"> <?= lang('Add_Registration'); ?></span>
-                                                    </a>
-                                                </li>
-                                            </ul>
-                                        </li>
                                         <li class="mm_calendar">
                                             <a class="submenu" href="<?= admin_url('calendar'); ?>">
                                                 <i class="fa fa-calendar"></i><span
@@ -333,12 +250,7 @@
                                                                     class="text"> <?= lang('change_logo'); ?></span>
                                                         </a>
                                                     </li>
-                                                    <li id="system_settings_categories">
-                                                        <a href="<?= admin_url('system_settings/categories') ?>">
-                                                            <i class="fa fa-folder-open"></i><span
-                                                                    class="text"> <?= lang('categories'); ?></span>
-                                                        </a>
-                                                    </li>
+
                                                     <li id="system_settings_email_templates">
                                                         <a href="<?= admin_url('system_settings/email_templates') ?>">
                                                             <i class="fa fa-envelope"></i><span
@@ -354,7 +266,7 @@
                                                     <li id="system_settings_backups">
                                                         <a href="<?= admin_url('system_settings/backups') ?>">
                                                             <i class="fa fa-database"></i><span
-                                                                    class="text"> <?= lang('backups'); ?></span>
+                                                                    class="text"> <?= lang('Backups'); ?></span>
                                                         </a>
                                                     </li>
                                                 </ul>
@@ -376,127 +288,31 @@
                                                 </a>
                                             </li>
 
-                                        <?php if ($GP['registration-index'] || $GP['registration-registration_group']) { ?>
-                                            <li class="mm_registration">
-                                                <a class="dropmenu" href="#">
-                                                    <i class="fa fa-check-circle"></i>
-                                                    <span class="text"> <?= lang('Registration'); ?> </span>
-                                                    <span class="chevron closed"></span>
-                                                </a>
-                                                <ul>
-                                                    <?php if ($GP['registration-index']) { ?>
-                                                        <li id="registration_index">
-                                                            <a class="submenu"
-                                                               href="<?= admin_url('registration'); ?>">
-                                                                <i class="fa fa-check-circle"></i><span
-                                                                        class="text"> <?= lang('List_Registration'); ?></span>
-                                                            </a>
-                                                        </li>
-
-                                                    <?php } ?>
-
-                                                    <?php if ($GP['registration-registration_group']) { ?>
-                                                        <li id="registration_registration_group">
-                                                            <a class="submenu"
-                                                               href="<?= admin_url('registration/registration_group'); ?>">
-                                                                <i class="fa fa-plus-circle"></i><span
-                                                                        class="text"> <?= lang('Add_Registration'); ?></span>
-                                                            </a>
-                                                        </li>
-
-                                                    <?php } ?>
-                                                </ul>
-                                            </li>
-                                        <?php } ?>
-                                        <?php if ($GP['teams-index'] || $GP['teams-add']) { ?>
-                                            <li class="mm_teams">
-                                                <a class="dropmenu" href="#">
-                                                    <i class="fa fa-circle"></i>
-                                                    <span class="text"> <?= lang('Team_Managers'); ?> </span>
-                                                    <span class="chevron closed"></span>
-                                                </a>
-                                                <ul>
-                                                    <?php if ($GP['teams-index']) { ?>
-                                                        <li id="teams_index">
-                                                            <a class="submenu"
-                                                               href="<?= admin_url('teams'); ?>">
-                                                                <i class="fa fa-users"></i><span
-                                                                        class="text"> <?= lang('List_Team_Managers'); ?></span>
-                                                            </a>
-                                                        </li>
-
-                                                    <?php } ?>
-
-                                                    <?php if ($GP['teams-add']) { ?>
-                                                        <li id="teams_add">
-                                                            <a class="submenu"
-                                                               href="<?= admin_url('teams/add'); ?>">
-                                                                <i class="fa fa-plus-circle"></i><span
-                                                                        class="text"> <?= lang('Add_Team_Manager'); ?></span>
-                                                            </a>
-                                                        </li>
-
-                                                    <?php } ?>
-                                                </ul>
-                                            </li>
-                                        <?php } ?>
-                                        <?php if ($GP['players-index'] || $GP['players-add']) { ?>
-                                            <li class="mm_players">
+                                        <?php if ($GP['clients-index'] || $GP['clients-add']) { ?>
+                                            <li class="mm_clients">
                                                 <a class="dropmenu" href="#">
                                                     <i class="fa fa-user-md"></i>
-                                                    <span class="text"> <?= lang('Players'); ?> </span>
+                                                    <span class="text"> <?= lang('Clients'); ?> </span>
                                                     <span class="chevron closed"></span>
                                                 </a>
                                                 <ul>
-                                                    <?php if ($GP['players-index']) { ?>
-                                                        <li id="players_index">
+                                                    <?php if ($GP['clients-index']) { ?>
+                                                        <li id="clients_index">
                                                             <a class="submenu"
-                                                               href="<?= admin_url('players'); ?>">
+                                                               href="<?= admin_url('clients'); ?>">
                                                                 <i class="fa fa-users"></i><span
-                                                                        class="text"> <?= lang('List_Players'); ?></span>
+                                                                        class="text"> <?= lang('List_Clients'); ?></span>
                                                             </a>
                                                         </li>
 
                                                     <?php } ?>
 
-                                                    <?php if ($GP['players-add']) { ?>
-                                                        <li id="players_add">
+                                                    <?php if ($GP['clients-add']) { ?>
+                                                        <li id="clients_add">
                                                             <a class="submenu"
-                                                               href="<?= admin_url('players/add'); ?>">
+                                                               href="<?= admin_url('clients/add'); ?>">
                                                                 <i class="fa fa-user-plus"></i><span
-                                                                        class="text"> <?= lang('Add_Player'); ?></span>
-                                                            </a>
-                                                        </li>
-
-                                                    <?php } ?>
-                                                </ul>
-                                            </li>
-                                        <?php } ?>
-                                        <?php if ($GP['coaches-index'] || $GP['coaches-add']) { ?>
-                                            <li class="mm_coaches">
-                                                <a class="dropmenu" href="#">
-                                                    <i class="fa fa-user-md"></i>
-                                                    <span class="text"> <?= lang('Coaches'); ?> </span>
-                                                    <span class="chevron closed"></span>
-                                                </a>
-                                                <ul>
-                                                    <?php if ($GP['coaches-index']) { ?>
-                                                        <li id="coaches_index">
-                                                            <a class="submenu"
-                                                               href="<?= admin_url('coaches'); ?>">
-                                                                <i class="fa fa-users"></i><span
-                                                                        class="text"> <?= lang('List_Coaches'); ?></span>
-                                                            </a>
-                                                        </li>
-
-                                                    <?php } ?>
-
-                                                    <?php if ($GP['coaches-add']) { ?>
-                                                        <li id="coaches_add">
-                                                            <a class="submenu"
-                                                               href="<?= admin_url('coaches/add'); ?>">
-                                                                <i class="fa fa-user-plus"></i><span
-                                                                        class="text"> <?= lang('Add_Coach'); ?></span>
+                                                                        class="text"> <?= lang('Add_Client'); ?></span>
                                                             </a>
                                                         </li>
 

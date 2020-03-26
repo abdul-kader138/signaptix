@@ -178,14 +178,14 @@ class Ion_auth
         }
     }
 
-    public function register($username, $password, $email, $additional_data = array(), $active = '1', $notify = FALSE)
+    public function register($username, $password, $email, $additional_data = array(), $clients_data=array(),$active = '1', $notify = FALSE)
     { //need to test email activation
         $this->auth_model->trigger_events('pre_account_creation');
 
         $email_activation = $this->config->item('email_activation', 'ion_auth');
 
         if (!$email_activation || $active == '1') {
-            $id = $this->auth_model->register($username, $password, $email, $additional_data, $active);
+            $id = $this->auth_model->register($username, $password, $email, $additional_data,$clients_data, $active);
             if ($id !== FALSE) {
                 if ($notify) {
                     $this->load->library('parser');

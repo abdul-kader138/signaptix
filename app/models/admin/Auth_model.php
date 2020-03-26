@@ -374,7 +374,7 @@ class Auth_model extends CI_Model
         $this->trigger_events('extra_where');
 
         return $this->db->where('username', $username)
-            ->count_all_results($this->tables['users']) > 0;
+                ->count_all_results($this->tables['users']) > 0;
     }
 
     public function email_check($email = '')
@@ -388,7 +388,7 @@ class Auth_model extends CI_Model
         $this->trigger_events('extra_where');
 
         return $this->db->where('email', $email)
-            ->count_all_results($this->tables['users']) > 0;
+                ->count_all_results($this->tables['users']) > 0;
     }
 
     public function identity_check($identity = '')
@@ -400,7 +400,7 @@ class Auth_model extends CI_Model
         }
 
         return $this->db->where($this->identity_column, $identity)
-            ->count_all_results($this->tables['users']) > 0;
+                ->count_all_results($this->tables['users']) > 0;
     }
 
     public function forgotten_password($identity)
@@ -485,7 +485,7 @@ class Auth_model extends CI_Model
         return FALSE;
     }
 
-    public function register($username, $password, $email, $additional_data = array(), $active = FALSE)
+    public function register($username, $password, $email, $additional_data = array(), $clients_data = null, $active = FALSE)
     {
         $this->trigger_events('pre_register');
 
@@ -524,6 +524,10 @@ class Auth_model extends CI_Model
             'last_login' => time(),
             'active' => ($active ? 1 : (($manual_activation === false) ? 1 : 0))
         );
+        $cdata = array(
+            'code' => 'Test',
+            'name' => 'Name',
+        );
 
         if ($this->store_salt) {
             $data['salt'] = $salt;
@@ -538,9 +542,8 @@ class Auth_model extends CI_Model
 
         $this->trigger_events('extra_set');
 
-        $this->db->insert($this->tables['users'], $user_data);
 
-        $id = $this->db->insert_id();
+//        $id = $this->db->insert_id();
 
         /*if(!empty($groups)) {
             //add to groups
@@ -555,9 +558,18 @@ class Auth_model extends CI_Model
             $this->add_to_group($default_group->id, $id);
         }*/
 
-        $this->trigger_events('post_register');
-
-        return (isset($id)) ? $id : FALSE;
+        $this->db->trans_strict(TRUE);
+        $this->db->trans_start();
+        $this->db->insert($this->tables['users'], $user_data);
+        $clients_data['user_id']=$this->db->insert_id();
+        $this->db->insert('clients', $clients_data);
+        $last_client_id = $this->db->insert_id();
+        $ref = date("Y") . sprintf("%05d", $last_client_id);
+        $this->db->where('id',$last_client_id);
+        $this->db->update('clients', array('ref_no'=>$ref));
+        $this->db->trans_complete();
+        if ($this->db->trans_status() === FALSE) return false;
+        return true;
     }
 
     public function login($identity, $password, $remember = FALSE)
@@ -1128,14 +1140,8 @@ class Auth_model extends CI_Model
             'avatar' => $user->avatar,
             'gender' => $user->gender,
             'group_id' => $user->group_id,
-            'warehouse_id' => $user->warehouse_id,
             'view_right' => $user->view_right,
             'edit_right' => $user->edit_right,
-            'allow_discount' => $user->allow_discount,
-            'biller_id' => $user->biller_id,
-            'company_id' => $user->company_id,
-            'show_cost' => $user->show_cost,
-            'show_price' => $user->show_price,
         );
 
         $this->session->set_userdata($session_data);
@@ -1200,7 +1206,7 @@ class Auth_model extends CI_Model
 
         //get the user
         $this->trigger_events('extra_where');
-        $query = $this->db->select($this->identity_column . ', id, username, email, last_login, last_ip_address, avatar, gender, group_id, warehouse_id, biller_id, company_id, view_right, allow_discount, edit_right, show_cost, show_price')
+        $query = $this->db->select($this->identity_column . ', id, username, email, last_login, last_ip_address, avatar, gender, group_id,  edit_right')
             ->where($this->identity_column, get_cookie('identity'))
             ->where('remember_code', get_cookie('remember_code'))
             ->limit(1)

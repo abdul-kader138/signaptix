@@ -8,7 +8,7 @@
  * Find your timezone here
  * http://php.net/manual/en/timezones.php
  */
-	$timezone = "Atlantic/Azores";
+	$timezone = "America/New_York";
 	if(function_exists('date_default_timezone_set')) date_default_timezone_set($timezone);
 	define('TIMEZONE', $timezone);
 

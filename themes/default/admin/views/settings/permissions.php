@@ -45,70 +45,32 @@
                                 </thead>
                                 <tbody>
                                 <tr>
-                                    <td><?= lang("Players"); ?></td>
+                                    <td><?= lang("Clients"); ?></td>
                                     <td class="text-center">
-                                        <input type="checkbox" value="1" class="checkbox" name="players-index" <?php echo $p->{'players-index'} ? "checked" : ''; ?>>
+                                        <input type="checkbox" value="1" class="checkbox" name="clients-index" <?php echo $p->{'clients-index'} ? "checked" : ''; ?>>
                                     </td>
                                     <td class="text-center">
-                                        <input type="checkbox" value="1" class="checkbox" name="players-add" <?php echo $p->{'players-add'} ? "checked" : ''; ?>>
+                                        <input type="checkbox" value="1" class="checkbox" name="clients-add" <?php echo $p->{'clients-add'} ? "checked" : ''; ?>>
                                     </td>
                                     <td class="text-center">
-                                        <input type="checkbox" value="1" class="checkbox" name="players-edit" <?php echo $p->{'players-edit'} ? "checked" : ''; ?>>
+                                        <input type="checkbox" value="1" class="checkbox" name="clients-edit" <?php echo $p->{'clients-edit'} ? "checked" : ''; ?>>
                                     </td>
                                     <td class="text-center">
-                                        <input type="checkbox" value="1" class="checkbox" name="players-delete" <?php echo $p->{'players-delete'} ? "checked" : ''; ?>>
+                                        <input type="checkbox" value="1" class="checkbox" name="clients-delete" <?php echo $p->{'clients-delete'} ? "checked" : ''; ?>>
                                     </td>
                                     <td>
                                     </td>
                                 </tr>
 
                                 <tr>
-                                    <td><?= lang("Coaches"); ?></td>
+                                    <td><?= lang("Notary"); ?></td>
                                     <td class="text-center">
-                                        <input type="checkbox" value="1" class="checkbox" name="coaches-index" <?php echo $p->{'coaches-index'} ? "checked" : ''; ?>>
-                                    </td>
-                                    <td class="text-center">
-                                        <input type="checkbox" value="1" class="checkbox" name="coaches-add" <?php echo $p->{'coaches-add'} ? "checked" : ''; ?>>
                                     </td>
                                     <td class="text-center">
-                                        <input type="checkbox" value="1" class="checkbox" name="coaches-edit" <?php echo $p->{'coaches-edit'} ? "checked" : ''; ?>>
-                                    </td>
-                                    <td class="text-center">
-                                        <input type="checkbox" value="1" class="checkbox" name="coaches-delete" <?php echo $p->{'coaches-delete'} ? "checked" : ''; ?>>
-                                    </td>
-                                    <td>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td><?= lang("Teams"); ?></td>
-                                    <td class="text-center">
-                                        <input type="checkbox" value="1" class="checkbox" name="teams-index" <?php echo $p->{'teams-index'} ? "checked" : ''; ?>>
-                                    </td>
-                                    <td class="text-center">
-                                        <input type="checkbox" value="1" class="checkbox" name="teams-add" <?php echo $p->{'teams-add'} ? "checked" : ''; ?>>
-                                    </td>
-                                    <td class="text-center">
-                                        <input type="checkbox" value="1" class="checkbox" name="teams-edit" <?php echo $p->{'teams-edit'} ? "checked" : ''; ?>>
-                                    </td>
-                                    <td class="text-center">
-                                        <input type="checkbox" value="1" class="checkbox" name="teams-delete" <?php echo $p->{'teams-delete'} ? "checked" : ''; ?>>
-                                    </td>
-                                    <td>
-                                    </td>
-                                </tr>
-
-                                <tr>
-                                    <td><?= lang("Registration"); ?></td>
-                                    <td class="text-center">
-                                        <input type="checkbox" value="1" class="checkbox" name="registration-index" <?php echo $p->{'registration-index'} ? "checked" : ''; ?>>
-                                    </td>
-                                    <td class="text-center">
-                                        <input type="checkbox" value="1" class="checkbox" name="registration-registration_group" <?php echo $p->{'registration-registration_group'} ? "checked" : ''; ?>>
                                     </td>
                                     <td class="text-center">
                                     </td>
                                     <td class="text-center">
-                                        <input type="checkbox" value="1" class="checkbox" name="registration-delete" <?php echo $p->{'registration-delete'} ? "checked" : ''; ?>>
                                     </td>
                                     <td>
                                     </td>

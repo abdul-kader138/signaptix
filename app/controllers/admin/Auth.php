@@ -55,6 +55,7 @@ class Auth extends MY_Controller
             ->join('groups', 'users.group_id=groups.id', 'left')
             ->group_by('users.id')
             ->where('company_id', NULL)
+            ->where('groups.id>', '3')
             ->edit_column('active', '$1__$2', 'active, id')
             ->add_column("Actions", "<div class=\"text-center\"><a href='" . admin_url('auth/profile/$1') . "' class='tip' title='" . lang("edit_user") . "'><i class=\"fa fa-edit\"></i></a></div>", "id");
 
@@ -93,7 +94,7 @@ class Auth extends MY_Controller
                 $this->session->unset_userdata('avatar');
             }
             $this->db->update('users', array('avatar' => NULL), array('id' => $id));
-            $this->session->set_flashdata('message', lang("avatar_deleted"));
+            $this->session->set_flashdata('message', lang("Image_Deleted_Successfully"));
             die("<script type='text/javascript'>setTimeout(function(){ window.top.location.href = '" . $_SERVER["HTTP_REFERER"] . "'; }, 0);</script>");
             redirect($_SERVER["HTTP_REFERER"]);
         }
@@ -755,7 +756,7 @@ class Auth extends MY_Controller
             unlink('assets/uploads/avatars/' . $user->avatar);
             unlink('assets/uploads/avatars/thumbs/' . $user->avatar);
             $this->session->set_userdata('avatar', $photo);
-            $this->session->set_flashdata('message', lang("avatar_updated"));
+            $this->session->set_flashdata('message', lang("Image_Updated_Successfully"));
             admin_redirect("auth/profile/" . $id);
         } else {
             $this->session->set_flashdata('error', validation_errors());
@@ -766,14 +767,10 @@ class Auth extends MY_Controller
     function register()
     {
         $this->data['title'] = "Register";
-//        if (!$this->allow_reg) {
-//            $this->session->set_flashdata('error', lang('registration_is_disabled'));
-//            admin_redirect("login");
-//        }
-
         $this->form_validation->set_message('is_unique', lang('account_exists'));
         $this->form_validation->set_rules('first_name', lang('first_name'), 'required');
         $this->form_validation->set_rules('last_name', lang('last_name'), 'required');
+        $this->form_validation->set_rules('phone', lang('phone'), 'required');
         $this->form_validation->set_rules('email', lang('email_address'), 'required|valid_email|is_unique[users.email]');
         $this->form_validation->set_rules('username', lang('username'), 'required|is_unique[users.username]');
         $this->form_validation->set_rules('password', lang('password'), 'required|min_length[8]|max_length[25]|matches[confirm_password]');
@@ -790,22 +787,27 @@ class Auth extends MY_Controller
             $additional_data = array(
                 'first_name' => $this->input->post('first_name'),
                 'last_name' => $this->input->post('last_name'),
-                'address' => $this->input->post('address'),
                 'company' => $this->input->post('company'),
-                'phone' => $this->input->post('phone'),
                 'phone' => $this->input->post('phone'),
                 'group_id' => (($this->input->post('phone')=='Notary') ? 3 : 2),
             );
+
+            $clients_data = array(
+                'company_address' => $this->input->post('address'),
+                'company_name' => $this->input->post('company'),
+                'company_phone' => $this->input->post('phone'),
+                'company_email' => $this->input->post('email'),
+                'created_date' => date('Y-m-d h:i:s'),
+            );
         }
         $t=$this->form_validation->run();
-        if ($this->form_validation->run() == true && $this->ion_auth->register($username, $password, $email, $additional_data)) {
+        if ($this->form_validation->run() == true && $this->ion_auth->register($username, $password, $email, $additional_data,$clients_data)) {
 
             $this->session->set_flashdata('message', $this->ion_auth->messages());
             admin_redirect("login");
         } else {
 
             $error = (validation_errors() ? validation_errors() : ($this->ion_auth->errors() ? $this->ion_auth->errors() : $this->session->flashdata('error')));
-//            $this->data['error'] = (validation_errors() ? validation_errors() : ($this->ion_auth->errors() ? $this->ion_auth->errors() : $this->session->flashdata('error')));
             $this->data['groups'] = $this->ion_auth->groups()->result_array();
 
             $this->load->helper('captcha');
@@ -881,9 +883,7 @@ class Auth extends MY_Controller
                 'value' => $this->form_validation->set_value('password_confirm'),
             );
             $this->session->set_flashdata('error', $error);
-//            admin_redirect("auth/login#register");
             admin_redirect("auth/login");
-//            $this->load->view('themes/admin/views/auth/login#register', $this->data);
         }
     }
 
