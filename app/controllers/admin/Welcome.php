@@ -30,14 +30,8 @@ class Welcome extends MY_Controller
         $this->data['error'] = (validation_errors() ? validation_errors() : $this->session->flashdata('error'));
         $this->data['users'] = $this->db_model->getLatestUsers();
         $this->data['Clients'] = $this->db_model->getLatestClients();
-        $this->data['coaches'] = $this->db_model->getLatestCoaches();
-        $this->data['schools'] = $this->db_model->getLatestSchools();
         $this->data['total_users'] = $this->db_model->getTotalUsers();
         $this->data['total_clients'] = $this->db_model->getTotalClients();
-        $this->data['total_coaches'] = $this->db_model->getTotalCoaches();
-        $this->data['total_schools'] = $this->db_model->getTotalSchools();
-        $this->data['zone_male_history'] = $this->db_model->getZoneMaleHistory();
-        $this->data['zone_female_history'] = $this->db_model->getZoneFemaleHistory();
         $lmsdate = date('Y-m-d', strtotime('first day of last month')) . ' 00:00:00';
         $lmedate = date('Y-m-d', strtotime('last day of last month')) . ' 23:59:59';
         $bc = array(array('link' => '#', 'page' => lang('dashboard')));

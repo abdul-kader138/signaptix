@@ -39,11 +39,7 @@ $config = array(
             'label' => lang('phone'),
             'rules' => 'required'
         ),
-        array(
-            'field' => 'gender',
-            'label' => lang('gender'),
-            'rules' => 'required'
-        ),
+
         array(
             'field' => 'password',
             'label' => lang('password'),
@@ -81,11 +77,7 @@ $config = array(
             'label' => lang('phone'),
             'rules' => 'required'
         ),
-        array(
-            'field' => 'gender',
-            'label' => lang('gender'),
-            'rules' => 'required'
-        ),
+
     ),
  );
 

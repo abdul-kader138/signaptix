@@ -214,10 +214,10 @@ class Clients extends MY_Controller
         if ($this->form_validation->run() == true) {
             $image = $usr_details->avatar;
             if ($_FILES['avatar']['size'] > 0) {
-                $image_new = $this->image_upload();
-                unlink('assets/uploads/avatars/' . $usr_details->avatar);
-                unlink('assets/uploads/avatars/thumbs/' . $usr_details->avatar);
-                $image = $image_new;
+                $image = $this->image_upload();
+//                unlink('assets/uploads/avatars/' . $usr_details->avatar);
+//                unlink('assets/uploads/avatars/thumbs/' . $usr_details->avatar);
+//                $image = $image_new;
             }
 
             $user_data = array(

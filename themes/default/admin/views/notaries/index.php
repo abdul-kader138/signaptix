@@ -22,7 +22,7 @@
         }
     }
 
-    function client_img_hl(x) {
+    function notary_img_hl(x) {
         var image_link = x == null || x == '' ? 'no_image.png' : x;
         return (
             '<div class="text-center"><img src="' +
@@ -40,7 +40,7 @@
             "aLengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "<?= lang('all') ?>"]],
             "iDisplayLength": <?= $Settings->rows_per_page ?>,
             'bProcessing': true, 'bServerSide': true,
-            'sAjaxSource': '<?= admin_url('clients/getClients') ?>',
+            'sAjaxSource': '<?= admin_url('notaries/getNotaries') ?>',
             'fnServerData': function (sSource, aoData, fnCallback) {
                 aoData.push({
                     "name": "<?= $this->security->get_csrf_token_name() ?>",
@@ -59,7 +59,7 @@
                 "mRender": checkbox
             }, {
                 "bSortable": false,
-                "mRender": client_img_hl
+                "mRender": notary_img_hl
             }, {"mRender": ref_status}, {"mRender": name_status}, null, null, null,null, null,  {"bSortable": false}]
         }).fnSetFilteringDelay().dtFilter([
             {column_number: 2, filter_default_label: "[<?=lang('Client_Code');?>]", filter_type: "text", data: []},
@@ -86,7 +86,7 @@
     }</style>
 <div class="box">
     <div class="box-header">
-        <h2 class="blue"><i class="fa-fw fa fa-users"></i><?= lang('Clients'); ?></h2>
+        <h2 class="blue"><i class="fa-fw fa fa-users"></i><?= lang('Notaries'); ?></h2>
 
         <div class="box-icon">
             <ul class="btn-tasks">
@@ -96,7 +96,7 @@
                                                                                   title="<?= lang("actions") ?>"></i></a>
                     <ul class="dropdown-menu pull-right tasks-menus" role="menu" aria-labelledby="dLabel">
                         <li><a href="<?= admin_url('clients/add'); ?>"><i
-                                        class="fa fa-plus-circle"></i> <?= lang("Add_Client"); ?></a></li>
+                                        class="fa fa-plus-circle"></i> <?= lang("Add_Notary"); ?></a></li>
                     </ul>
                 </li>
             </ul>

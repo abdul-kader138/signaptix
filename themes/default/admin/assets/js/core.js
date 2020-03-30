@@ -86,56 +86,6 @@ $('#csv_file').change(function (e) {
 });
 
 $(document).ready(function () {
-    $('#suggest_product').autocomplete({
-        source: site.base_url + 'reports/suggestions',
-        select: function (event, ui) {
-            $('#report_product_id').val(ui.item.id);
-        },
-        minLength: 1,
-        autoFocus: false,
-        delay: 250,
-        response: function (event, ui) {
-            if (ui.content.length == 1 && ui.content[0].id != 0) {
-                ui.item = ui.content[0];
-                $(this).val(ui.item.label);
-                $(this)
-                    .data('ui-autocomplete')
-                    ._trigger('select', 'autocompleteselect', ui);
-                $(this).autocomplete('close');
-                $(this).removeClass('ui-autocomplete-loading');
-            }
-        },
-    });
-    $(document).on('blur', '#suggest_product', function (e) {
-        if (!$(this).val()) {
-            $('#report_product_id').val('');
-        }
-    });
-    $('#suggest_product2').autocomplete({
-        source: site.base_url + 'reports/suggestions',
-        select: function (event, ui) {
-            $('#report_product_id2').val(ui.item.id);
-        },
-        minLength: 1,
-        autoFocus: false,
-        delay: 250,
-        response: function (event, ui) {
-            if (ui.content.length == 1 && ui.content[0].id != 0) {
-                ui.item = ui.content[0];
-                $(this).val(ui.item.label);
-                $(this)
-                    .data('ui-autocomplete')
-                    ._trigger('select', 'autocompleteselect', ui);
-                $(this).autocomplete('close');
-                $(this).removeClass('ui-autocomplete-loading');
-            }
-        },
-    });
-    $(document).on('blur', '#suggest_product2', function (e) {
-        if (!$(this).val()) {
-            $('#report_product_id').val('');
-        }
-    });
     $('#random_num').click(function () {
         $(this)
             .parent('.input-group')
@@ -413,27 +363,6 @@ $(document).ready(function () {
             },
         },
     });
-    $('#supplier, #rsupplier, .rsupplier').select2({
-        minimumInputLength: 1,
-        ajax: {
-            url: site.base_url + 'suppliers/suggestions',
-            dataType: 'json',
-            quietMillis: 15,
-            data: function (term, page) {
-                return {
-                    term: term,
-                    limit: 10,
-                };
-            },
-            results: function (data, page) {
-                if (data.results != null) {
-                    return {results: data.results};
-                } else {
-                    return {results: [{id: '', text: 'No Match Found'}]};
-                }
-            },
-        },
-    });
     $('.input-tip').tooltip({
         placement: 'top',
         html: true,
@@ -521,30 +450,6 @@ $(document).ready(function () {
             .trigger('click');
     });
 });
-
-function suppliers(ele) {
-    $(ele).select2({
-        minimumInputLength: 1,
-        ajax: {
-            url: site.base_url + 'suppliers/suggestions',
-            dataType: 'json',
-            quietMillis: 15,
-            data: function (term, page) {
-                return {
-                    term: term,
-                    limit: 10,
-                };
-            },
-            results: function (data, page) {
-                if (data.results != null) {
-                    return {results: data.results};
-                } else {
-                    return {results: [{id: '', text: 'No Match Found'}]};
-                }
-            },
-        },
-    });
-}
 
 $(function () {
     $('.datetime').datetimepicker({
@@ -651,27 +556,12 @@ $(document).ready(function () {
         $('#form_action').val($(this).attr('data-action'));
         $('#action-form').submit();
     });
-    $('body').on('click', '#sync_quantity', function (e) {
-        e.preventDefault();
-        $('#form_action').val($(this).attr('data-action'));
-        $('#action-form-submit').trigger('click');
-    });
     $('body').on('click', '#excel', function (e) {
         e.preventDefault();
         $('#form_action').val($(this).attr('data-action'));
         $('#action-form-submit').trigger('click');
     });
     $('body').on('click', '#pdf', function (e) {
-        e.preventDefault();
-        $('#form_action').val($(this).attr('data-action'));
-        $('#action-form-submit').trigger('click');
-    });
-    $('body').on('click', '#labelProducts', function (e) {
-        e.preventDefault();
-        $('#form_action').val($(this).attr('data-action'));
-        $('#action-form-submit').trigger('click');
-    });
-    $('body').on('click', '#barcodeProducts', function (e) {
         e.preventDefault();
         $('#form_action').val($(this).attr('data-action'));
         $('#action-form-submit').trigger('click');
@@ -1068,43 +958,6 @@ $(document).ready(function () {
     });
 });
 
-$(document).ready(function () {
-    $(document).on('click', '.repair_status', function (e) {
-        e.preventDefault;
-        var row = $(this).closest('tr');
-        var id = row.attr('id');
-        if (row.hasClass('repair_invoice_link')) {
-            $('#myModal').modal({remote: site.base_url + 'sales/repair_status/' + id});
-            $('#myModal').modal('show');
-        }
-        return false;
-    });
-});
-
-$(document).ready(function () {
-    $(document).on('click', '.repair_status_history', function (e) {
-        e.preventDefault;
-        var id = $(this).attr('id');
-        // var id = row.attr('id');
-        $('#myModal').modal({remote: site.base_url + 'sales/repair_history/' + id});
-        $('#myModal').modal('show');
-        return false;
-    });
-});
-
-$('body').on('click', '.repair_invoice_link td:not(:first-child, :nth-child(9), :nth-last-child(2), :last-child)', function () {
-    $('#myModal').modal({
-        remote:
-        site.base_url +
-        'pos/view/' +
-        $(this)
-            .parent('.repair_invoice_link')
-            .attr('id') +
-        '/1',
-    });
-    $('#myModal').modal('show');
-    //window.location.href = site.base_url + 'sales/view/' + $(this).parent('.invoice_link').attr('id');
-});
 
 /*
  $(window).scroll(function() {
@@ -1132,14 +985,6 @@ $(document).on('ifUnchecked', '.multi-select', function (event) {
     $('.checkth, .checkft').iCheck('update');
 });
 
-function check_add_item_val() {
-    $('#add_item').bind('keypress', function (e) {
-        if (e.keyCode == 13 || e.keyCode == 9) {
-            e.preventDefault();
-            $(this).autocomplete('search');
-        }
-    });
-}
 
 function fld(oObj) {
     if (oObj != null) {
@@ -1253,9 +1098,6 @@ function formatMoney(x, symbol) {
     );
 }
 
-function is_valid_discount(mixed_var) {
-    return is_numeric(mixed_var) || /([0-9]%)/i.test(mixed_var) ? true : false;
-}
 
 function is_numeric(mixed_var) {
     var whitespace = ' \n\r\t\f\x0b\xa0\u2000\u2001\u2002\u2003\u2004\u2005\u2006\u2007\u2008\u2009\u200a\u200b\u2028\u2029\u3000';
@@ -1375,37 +1217,7 @@ function user_status(x) {
         '</span><a/>';
 }
 
-function row_status(x) {
-    if (x == null) {
-        return '';
-    } else if (x == 'pending') {
-        return '<div class="text-center"><span class="row_status label label-warning">' + lang[x] + '</span></div>';
-    } else if (x == 'completed' || x == 'paid' || x == 'sent' || x == 'received') {
-        return '<div class="text-center"><span class="row_status label label-success">' + lang[x] + '</span></div>';
-    } else if (x == 'partial' || x == 'transferring' || x == 'ordered') {
-        return '<div class="text-center"><span class="row_status label label-info">' + lang[x] + '</span></div>';
-    } else if (x == 'due' || x == 'returned') {
-        return '<div class="text-center"><span class="row_status label label-danger">' + lang[x] + '</span></div>';
-    } else {
-        return '<div class="text-center"><span class="row_status label label-default">' + x + '</span></div>';
-    }
-}
 
-function pay_status(x) {
-    if (x == null) {
-        return '';
-    } else if (x == 'pending') {
-        return '<div class="text-center"><span class="payment_status label label-warning">' + lang[x] + '</span></div>';
-    } else if (x == 'completed' || x == 'paid' || x == 'sent' || x == 'received') {
-        return '<div class="text-center"><span class="payment_status label label-success">' + lang[x] + '</span></div>';
-    } else if (x == 'partial' || x == 'transferring' || x == 'ordered') {
-        return '<div class="text-center"><span class="payment_status label label-info">' + lang[x] + '</span></div>';
-    } else if (x == 'due' || x == 'returned') {
-        return '<div class="text-center"><span class="payment_status label label-danger">' + lang[x] + '</span></div>';
-    } else {
-        return '<div class="text-center"><span class="payment_status label label-default">' + x + '</span></div>';
-    }
-}
 
 function formatSA(x) {
     x = x.toString();
@@ -1419,44 +1231,6 @@ function formatSA(x) {
     var res = otherNumbers.replace(/\B(?=(\d{2})+(?!\d))/g, ',') + lastThree + afterPoint;
 
     return res;
-}
-
-function unitToBaseQty(qty, unitObj) {
-    switch (unitObj.operator) {
-        case '*':
-            return parseFloat(qty) * parseFloat(unitObj.operation_value);
-            break;
-        case '/':
-            return parseFloat(qty) / parseFloat(unitObj.operation_value);
-            break;
-        case '+':
-            return parseFloat(qty) + parseFloat(unitObj.operation_value);
-            break;
-        case '-':
-            return parseFloat(qty) - parseFloat(unitObj.operation_value);
-            break;
-        default:
-            return parseFloat(qty);
-    }
-}
-
-function baseToUnitQty(qty, unitObj) {
-    switch (unitObj.operator) {
-        case '*':
-            return parseFloat(qty) / parseFloat(unitObj.operation_value);
-            break;
-        case '/':
-            return parseFloat(qty) * parseFloat(unitObj.operation_value);
-            break;
-        case '+':
-            return parseFloat(qty) - parseFloat(unitObj.operation_value);
-            break;
-        case '-':
-            return parseFloat(qty) + parseFloat(unitObj.operation_value);
-            break;
-        default:
-            return parseFloat(qty);
-    }
 }
 
 function set_page_focus() {
@@ -1475,306 +1249,9 @@ function set_page_focus() {
         }
     });
 }
-
-function calculateTax(tax, amt, met) {
-    if (tax && tax_rates) {
-        tax_val = 0;
-        tax_rate = '';
-        $.each(tax_rates, function () {
-            if (this.id == tax) {
-                tax = this;
-                return false;
-            }
-        });
-        if (tax.type == 1) {
-            if (met == '0') {
-                tax_val = formatDecimal((amt * parseFloat(tax.rate)) / (100 + parseFloat(tax.rate)), 4);
-                tax_rate = formatDecimal(tax.rate) + '%';
-            } else {
-                tax_val = formatDecimal((amt * parseFloat(tax.rate)) / 100, 4);
-                tax_rate = formatDecimal(tax.rate) + '%';
-            }
-        } else if (tax.type == 2) {
-            tax_val = parseFloat(tax.rate);
-            tax_rate = formatDecimal(tax.rate);
-        }
-        return [tax_val, tax_rate];
-    }
-    return false;
-}
-
-function calculateDiscount(val, amt) {
-    if (val.indexOf('%') !== -1) {
-        var pds = val.split('%');
-        return formatDecimal(parseFloat((amt * parseFloat(pds[0])) / 100), 4);
-    }
-    return formatDecimal(val);
-}
-
 $(document).ready(function () {
-    $('#view-customer').click(function () {
-        if ($('input[name=customer]').val()) {
-            $('#myModal').modal({remote: site.base_url + 'customers/view/' + $('input[name=customer]').val()});
-            $('#myModal').modal('show');
-        }
-    });
-    $('#view-supplier').click(function () {
-        if ($('input[name=supplier]').val()) {
-            $('#myModal').modal({remote: site.base_url + 'suppliers/view/' + $('input[name=supplier]').val()});
-            $('#myModal').modal('show');
-        }
-    });
-    $('body').on('click', '.customer_details_link td:not(:first-child, :last-child)', function () {
-        $('#myModal').modal({
-            remote:
-            site.base_url +
-            'customers/view/' +
-            $(this)
-                .parent('.customer_details_link')
-                .attr('id'),
-        });
-        $('#myModal').modal('show');
-    });
-    $('body').on('click', '.supplier_details_link td:not(:first-child, :last-child)', function () {
-        $('#myModal').modal({
-            remote:
-            site.base_url +
-            'suppliers/view/' +
-            $(this)
-                .parent('.supplier_details_link')
-                .attr('id'),
-        });
-        $('#myModal').modal('show');
-    });
-    $('body').on('click', '.product_link td:not(:first-child, :nth-child(2), :last-child)', function () {
-        $('#myModal').modal({
-            remote:
-            site.base_url +
-            'products/modal_view/' +
-            $(this)
-                .parent('.product_link')
-                .attr('id'),
-        });
-        $('#myModal').modal('show');
-        //window.location.href = site.base_url + 'products/view/' + $(this).parent('.product_link').attr('id');
-    });
-    $('body').on('click', '.product_link2 td:first-child, .product_link2 td:nth-child(2)', function () {
-        $('#myModal').modal({
-            remote:
-            site.base_url +
-            'products/modal_view/' +
-            $(this)
-                .closest('tr')
-                .attr('id'),
-        });
-        $('#myModal').modal('show');
-    });
-    $('body').on('click', '.purchase_link td:not(:first-child, :nth-child(5), :nth-last-child(2), :last-child)', function () {
-        $('#myModal').modal({
-            remote:
-            site.base_url +
-            'purchases/modal_view/' +
-            $(this)
-                .parent('.purchase_link')
-                .attr('id'),
-        });
-        $('#myModal').modal('show');
-        //window.location.href = site.base_url + 'purchases/view/' + $(this).parent('.purchase_link').attr('id');
-    });
-    $('body').on('click', '.purchase_link2 td', function () {
-        $('#myModal').modal({
-            remote:
-            site.base_url +
-            'purchases/modal_view/' +
-            $(this)
-                .closest('tr')
-                .attr('id'),
-        });
-        $('#myModal').modal('show');
-    });
-    $('body').on('click', '.transfer_link td:not(:first-child, :nth-last-child(3), :nth-last-child(2), :last-child)', function () {
-        $('#myModal').modal({
-            remote:
-            site.base_url +
-            'transfers/view/' +
-            $(this)
-                .parent('.transfer_link')
-                .attr('id'),
-        });
-        $('#myModal').modal('show');
-    });
-    $('body').on('click', '.transfer_link2', function () {
-        $('#myModal').modal({remote: site.base_url + 'transfers/view/' + $(this).attr('id')});
-        $('#myModal').modal('show');
-    });
-
     $('body').on('click', '.registration_link td:not(:first-child, :nth-child(2), :last-child)', function() {
         $('#myModal').modal({remote: site.base_url + 'registration/modal_view/' + $(this).closest('tr').attr('id')});
-        $('#myModal').modal('show');
-    });
-    $('body').on('click', '.oreturn_link td:not(:first-child, :last-child)', function () {
-        $('#myModal').modal({
-            remote:
-            site.base_url +
-            'returns/view/' +
-            $(this)
-                .parent('.oreturn_link')
-                .attr('id'),
-        });
-        $('#myModal').modal('show');
-    });
-    $('body').on('click', '.invoice_link td:not(:first-child, :nth-child(6), :nth-last-child(2), :last-child)', function () {
-        $('#myModal').modal({
-            remote:
-            site.base_url +
-            'sales/modal_view/' +
-            $(this)
-                .parent('.invoice_link')
-                .attr('id'),
-        });
-        $('#myModal').modal('show');
-        //window.location.href = site.base_url + 'sales/view/' + $(this).parent('.invoice_link').attr('id');
-    });
-    $('body').on('click', '.invoice_link2 td:not(:first-child, :last-child)', function () {
-        $('#myModal').modal({
-            remote:
-            site.base_url +
-            'sales/modal_view/' +
-            $(this)
-                .closest('tr')
-                .attr('id'),
-        });
-        $('#myModal').modal('show');
-    });
-    $('body').on('click', '.receipt_link td:not(:first-child, :last-child)', function () {
-        $('#myModal').modal({
-            remote:
-            site.base_url +
-            'pos/view/' +
-            $(this)
-                .parent('.receipt_link')
-                .attr('id') +
-            '/1',
-        });
-    });
-    $('body').on('click', '.return_link td', function () {
-        // window.location.href = site.base_url + 'sales/view_return/' + $(this).parent('.return_link').attr('id');
-        $('#myModal').modal({
-            remote:
-            site.base_url +
-            'sales/view_return/' +
-            $(this)
-                .parent('.return_link')
-                .attr('id'),
-        });
-        $('#myModal').modal('show');
-    });
-    $('body').on('click', '.return_purchase_link td', function () {
-        $('#myModal').modal({
-            remote:
-            site.base_url +
-            'purchases/view_return/' +
-            $(this)
-                .parent('.return_purchase_link')
-                .attr('id'),
-        });
-        $('#myModal').modal('show');
-    });
-    $('body').on('click', '.payment_link td', function () {
-        $('#myModal').modal({
-            remote:
-            site.base_url +
-            'sales/payment_note/' +
-            $(this)
-                .parent('.payment_link')
-                .attr('id'),
-        });
-        $('#myModal').modal('show');
-    });
-    $('body').on('click', '.payment_link2 td', function () {
-        $('#myModal').modal({
-            remote:
-            site.base_url +
-            'purchases/payment_note/' +
-            $(this)
-                .parent('.payment_link2')
-                .attr('id'),
-        });
-        $('#myModal').modal('show');
-    });
-    $('body').on('click', '.expense_link2 td:not(:last-child)', function () {
-        $('#myModal').modal({
-            remote:
-            site.base_url +
-            'purchases/expense_note/' +
-            $(this)
-                .closest('tr')
-                .attr('id'),
-        });
-        $('#myModal').modal('show');
-    });
-    $('body').on('click', '.quote_link td:not(:first-child, :nth-last-child(3), :nth-last-child(2), :last-child)', function () {
-        $('#myModal').modal({
-            remote:
-            site.base_url +
-            'quotes/modal_view/' +
-            $(this)
-                .parent('.quote_link')
-                .attr('id'),
-        });
-        $('#myModal').modal('show');
-        //window.location.href = site.base_url + 'quotes/view/' + $(this).parent('.quote_link').attr('id');
-    });
-    $('body').on('click', '.quote_link2', function () {
-        $('#myModal').modal({remote: site.base_url + 'quotes/modal_view/' + $(this).attr('id')});
-        $('#myModal').modal('show');
-    });
-    $('body').on('click', '.delivery_link td:not(:first-child, :nth-last-child(2), :nth-last-child(3), :last-child)', function () {
-        $('#myModal').modal({
-            remote:
-            site.base_url +
-            'sales/view_delivery/' +
-            $(this)
-                .parent('.delivery_link')
-                .attr('id'),
-        });
-        $('#myModal').modal('show');
-    });
-    $('body').on('click', '.customer_link td:not(:first-child)', function () {
-        $('#myModal').modal({
-            remote:
-            site.base_url +
-            'customers/edit/' +
-            $(this)
-                .parent('.customer_link')
-                .attr('id'),
-        });
-        $('#myModal').modal('show');
-    });
-    $('body').on('click', '.supplier_link td:not(:first-child)', function () {
-        $('#myModal').modal({
-            remote:
-            site.base_url +
-            'suppliers/edit/' +
-            $(this)
-                .parent('.supplier_link')
-                .attr('id'),
-        });
-        $('#myModal').modal('show');
-    });
-    $('body').on('click', '.adjustment_link td:not(:first-child, :nth-last-child(2), :last-child)', function () {
-        $('#myModal').modal({
-            remote:
-            site.base_url +
-            'products/view_adjustment/' +
-            $(this)
-                .parent('.adjustment_link')
-                .attr('id'),
-        });
-        $('#myModal').modal('show');
-    });
-    $('body').on('click', '.adjustment_link2', function () {
-        $('#myModal').modal({remote: site.base_url + 'products/view_adjustment/' + $(this).attr('id')});
         $('#myModal').modal('show');
     });
     $('#clearLS').click(function (event) {
@@ -1848,11 +1325,6 @@ function fixAddItemnTotals() {
                 .css('zIndex', 2);
         }
     });
-}
-
-function ItemnTotals() {
-    fixAddItemnTotals();
-    $(window).bind('resize', fixAddItemnTotals);
 }
 
 function getSlug(title, type) {

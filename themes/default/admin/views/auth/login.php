@@ -18,7 +18,7 @@
 
 </head>
 
-<body class="login-page">
+<body class="login-page bg-blue">
 <noscript>
     <div class="global-site-notice noscript">
         <div class="notice-inner">
@@ -30,9 +30,9 @@
     </div>
 </noscript>
 <div class="page-back">
-    <div class="text-center">
+    <div class="text-center user_profile_avatar">
         <?php if ($Settings->logo2) {
-            echo '<img src="' . base_url('assets/uploads/logos/' . $Settings->logo2) . '" alt="' . $Settings->site_name . '" style="margin-bottom:10px;" />';
+            echo '<img class="img-circle" src="' . base_url('assets/uploads/logos/' . $Settings->logo2) . '" alt="' . $Settings->site_name . '" style="margin-bottom:10px;" />';
         } ?>
     </div>
 
@@ -40,7 +40,7 @@
         <div class=" container">
 
             <div class="login-form-div">
-                <div class="login-content">
+                <div class="login-content login-border-curve">
                     <?php if ($Settings->mmode) { ?>
                         <div class="alert alert-warning">
                             <button data-dismiss="alert" class="close" type="button">×</button>
@@ -67,10 +67,10 @@
                     ?>
                     <?php echo admin_form_open("auth/login", 'class="login" data-toggle="validator"'); ?>
                     <div class="div-title col-sm-12">
-                        <h3 style="text-align: center" class="text-primary"><?=  ucwords(lang('login_to_your_account')) ?></h3>
+                        <h3 class="login-text-font"><?= ucwords(lang('login_to_your_account')) ?></h3>
                     </div>
                     <div class="col-sm-12">
-                        <div class="textbox-wrap form-group">
+                        <div class="textbox-wrap form-group rounded-circle">
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="fa fa-user"></i></span>
                                 <input type="text" value="" required="required" class="form-control" name="identity"
@@ -126,23 +126,23 @@
                     </div>
                     <?php echo form_close(); ?>
                     <div class="clearfix"></div>
+                    <div class="login-form-links link1">
+                        Don't Have An Account? <a href="#register"
+                                                  class="text-info register_link"> <?= lang('Sign_Up_Now!') ?></a>
+                    </div>
                 </div>
-                <div class="login-form-links link1">
-                    <h4 class="text-info"><?= lang('dont_have_account') ?></h4>
-                    <span><?= lang('no_worry') ?></span>
-                    <a href="#register" class="text-info register_link"><?= lang('click_here') ?></a>
-                    <span><?= lang('to_register') ?></span>
-                </div>
+
             </div>
         </div>
     </div>
 
     <div id="register" style="display: none">
         <div class="container">
-            <div class="registration-form-div reg-content">
+            <div class="registration-form-div  login-border-curve reg-content">
                 <?php echo admin_form_open("auth/register", 'class="login" data-toggle="validator"'); ?>
                 <div class="div-title col-sm-12">
-                    <h3 style="text-align: center" class="text-primary"><?= ucwords(lang('register_account_heading')) ?></h3>
+                    <h3 style="text-align: center"
+                        class="text-primary"><?= ucwords(lang('register_account_heading')) ?></h3>
                 </div>
 
                 <div class="col-sm-6">
@@ -213,9 +213,9 @@
                     <div class="form-group">
                         <?= lang('Address', 'Address'); ?>
                         <div class="input-group">
-<!--                            <span class="input-group-addon "><i class="fa fa-building"></i></span>-->
+                            <!--                            <span class="input-group-addon "><i class="fa fa-building"></i></span>-->
                             <textarea type="text" name="address" class="form-control" rows="3" cols="50"
-                                      "></textarea>
+                            "></textarea>
                         </div>
                     </div>
                 </div>
@@ -275,15 +275,17 @@
 <script type="text/javascript">
     $(document).ready(function () {
 
-        $( "#user_type" ).change(function() {
-           if(this.value == 'Notary'){
-               $('#company').val('');
-               $('#company').attr('readonly', true);
-           };
-            if(this.value == 'Client'){
+        $("#user_type").change(function () {
+            if (this.value == 'Notary') {
+                $('#company').val('');
+                $('#company').attr('readonly', true);
+            }
+            ;
+            if (this.value == 'Client') {
                 $('#company').val('');
                 $('#company').attr('readonly', false);
-            };
+            }
+            ;
         });
         localStorage.clear();
         var hash = window.location.hash;

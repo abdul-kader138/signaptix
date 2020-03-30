@@ -20,6 +20,7 @@
     <div class="col-sm-10">
 
         <ul id="myTab" class="nav nav-tabs">
+            <li class=""><a href="#edit" class="tab-grey"><?= lang('edit') ?></a></li>
             <li class=""><a href="#cpassword" class="tab-grey"><?= lang('change_password') ?></a></li>
             <li class=""><a href="#avatar" class="tab-grey"><?= lang('Change_Image') ?></a></li>
         </ul>
@@ -64,22 +65,7 @@
                                                 </div>
                                             </div>
 
-                                            <div class="form-group">
-                                                <?= lang('gender', 'gender'); ?>
-                                                <div class="controls">  <?php
-                                                    $ge[''] = array('male' => lang('male'), 'female' => lang('female'));
-                                                    echo form_dropdown('gender', $ge, (isset($_POST['gender']) ? $_POST['gender'] : $user->gender), 'class="tip form-control" id="gender" required="required"');
-                                                    ?>
-                                                </div>
-                                            </div>
-                                            <?php if (($Owner || $Admin) && $id != $this->session->userdata('user_id')) { ?>
-                                            <div class="form-group">
-                                                <?= lang('award_points', 'award_points'); ?>
-                                                <?= form_input('award_points', set_value('award_points', $user->award_points), 'class="form-control tip" id="award_points"  required="required"'); ?>
-                                            </div>
-                                            <?php } ?>
-
-                                            <?php if ($Owner && $id != $this->session->userdata('user_id')) { ?>
+                                            <?php if ($Owner) { ?>
                                                 <div class="form-group">
                                                     <?php echo lang('username', 'username'); ?>
                                                     <input type="text" name="username" class="form-control"
@@ -118,7 +104,7 @@
 
                                         </div>
                                         <div class="col-md-6 col-md-offset-1">
-                                            <?php if ($Owner && $id != $this->session->userdata('user_id')) { ?>
+                                            <?php if ($Owner) { ?>
 
                                                     <div class="row">
                                                         <div class="panel panel-warning">
@@ -148,17 +134,6 @@
                                                                         </div>
                                                                         <div class="clearfix"></div>
                                                                         <div class="no">
-
-                                                                            <div class="form-group">
-                                                                                <?= lang("warehouse", "warehouse"); ?>
-                                                                                <?php
-                                                                                $wh[''] = lang('select').' '.lang('warehouse');
-                                                                                foreach ($warehouses as $warehouse) {
-                                                                                    $wh[$warehouse->id] = $warehouse->name;
-                                                                                }
-                                                                                echo form_dropdown('warehouse', $wh, (isset($_POST['warehouse']) ? $_POST['warehouse'] : $user->warehouse_id), 'id="warehouse" class="form-control select" data-placeholder="' . $this->lang->line("select") . ' ' . $this->lang->line("warehouse") . '" style="width:100%;" ');
-                                                                                ?>
-                                                                            </div>
                                                                             <div class="form-group">
                                                                                 <?= lang("view_right", "view_right"); ?>
                                                                                 <?php

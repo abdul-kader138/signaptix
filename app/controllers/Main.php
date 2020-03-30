@@ -1,6 +1,6 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Main extends MY_Shop_Controller
+class Main extends MY_Route_Controller
 {
 
     function __construct() {
@@ -13,13 +13,7 @@ class Main extends MY_Shop_Controller
     }
 
     function index() {
-        if (!SHOP) { redirect('admin'); }
-        if ($this->shop_settings->private && !$this->loggedIn) { redirect('/login'); }
-        $this->data['featured_products'] = $this->shop_model->getFeaturedProducts();
-        $this->data['slider'] = json_decode($this->shop_settings->slider);
-        $this->data['page_title'] = $this->shop_settings->shop_name;
-        $this->data['page_desc'] = $this->shop_settings->description;
-        $this->page_construct('index', $this->data);
+        redirect('main/login');
     }
 
     function profile($act = NULL) {
@@ -115,7 +109,7 @@ class Main extends MY_Shop_Controller
     }
 
     function login($m = NULL) {
-        if (!SHOP || $this->Settings->mmode) { redirect('admin/login'); }
+        if (!$this->Settings->mmode) { redirect('admin/login'); }
         if ($this->loggedIn) {
             $this->session->set_flashdata('error', $this->session->flashdata('error'));
             redirect('/');
@@ -139,6 +133,7 @@ class Main extends MY_Shop_Controller
 
                 $this->session->set_flashdata('message', $this->ion_auth->messages());
                 $referrer = ($this->session->userdata('requested_page') && $this->session->userdata('requested_page') != 'admin') ? $this->session->userdata('requested_page') : '/';
+//                redirect('login');
                 redirect($referrer);
             } else {
                 $this->session->set_flashdata('error', $this->ion_auth->errors());

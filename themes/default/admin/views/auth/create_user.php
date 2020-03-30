@@ -27,14 +27,6 @@
                                     <?php echo form_input('last_name', '', 'class="form-control" id="last_name" required="required"'); ?>
                                 </div>
                             </div>
-                            <div class="form-group">
-                                <?= lang('gender', 'gender'); ?>
-                                <?php
-                                $ge[''] = array('male' => lang('male'), 'female' => lang('female'));
-                                echo form_dropdown('gender', $ge, (isset($_POST['gender']) ? $_POST['gender'] : ''), 'class="tip form-control" id="gender" data-placeholder="' . lang("select") . ' ' . lang("gender") . '" required="required"');
-                                ?>
-                            </div>
-
 
                             <div class="form-group">
                                 <?php echo lang('phone', 'phone'); ?>
@@ -98,17 +90,6 @@
                             <div class="clearfix"></div>
                             <div class="no">
                                 <div class="form-group">
-                                    <?= lang("warehouse", "warehouse"); ?>
-                                    <?php
-                                    $wh[''] = lang('select').' '.lang('warehouse');
-                                    foreach ($warehouses as $warehouse) {
-                                        $wh[$warehouse->id] = $warehouse->name;
-                                    }
-                                    echo form_dropdown('warehouse', $wh, (isset($_POST['warehouse']) ? $_POST['warehouse'] : ''), 'id="warehouse" class="form-control select" style="width:100%;" ');
-                                    ?>
-                                </div>
-
-                                <div class="form-group">
                                     <?= lang("view_right", "view_right"); ?>
                                     <?php
                                     $vropts = array(1 => lang('all_records'), 0 => lang('own_records'));
@@ -124,15 +105,15 @@
                                 </div>
                             </div>
 
-                            <div class="row">
-                                <div class="col-md-8">
-                                    <label class="checkbox" for="notify">
-                                        <input type="checkbox" name="notify" value="1" id="notify" checked="checked"/>
-                                        <?= lang('notify_user_by_email') ?>
-                                    </label>
-                                </div>
-                                <div class="clearfix"></div>
-                            </div>
+<!--                            <div class="row">-->
+<!--                                <div class="col-md-8">-->
+<!--                                    <label class="checkbox" for="notify">-->
+<!--                                        <input type="checkbox" name="notify" value="1" id="notify" checked="checked"/>-->
+<!--                                        --><?//= lang('notify_user_by_email') ?>
+<!--                                    </label>-->
+<!--                                </div>-->
+<!--                                <div class="clearfix"></div>-->
+<!--                            </div>-->
 
                         </div>
                     </div>
@@ -150,7 +131,7 @@
         $('.no').slideUp();
         $('#group').change(function (event) {
             var group = $(this).val();
-            if (group == 1 || group == 2) {
+            if (group == 1) {
                 $('.no').slideUp();
             } else {
                 $('.no').slideDown();

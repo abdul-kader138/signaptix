@@ -520,13 +520,10 @@ class Auth_model extends CI_Model
             'password' => $password,
             'email' => $email,
             'ip_address' => $ip_address,
+            'phone' => $additional_data['phone'],
             'created_on' => time(),
             'last_login' => time(),
             'active' => ($active ? 1 : (($manual_activation === false) ? 1 : 0))
-        );
-        $cdata = array(
-            'code' => 'Test',
-            'name' => 'Name',
         );
 
         if ($this->store_salt) {
@@ -561,12 +558,14 @@ class Auth_model extends CI_Model
         $this->db->trans_strict(TRUE);
         $this->db->trans_start();
         $this->db->insert($this->tables['users'], $user_data);
-        $clients_data['user_id']=$this->db->insert_id();
-        $this->db->insert('clients', $clients_data);
-        $last_client_id = $this->db->insert_id();
-        $ref = date("Y") . sprintf("%05d", $last_client_id);
-        $this->db->where('id',$last_client_id);
-        $this->db->update('clients', array('ref_no'=>$ref));
+        if($clients_data){
+            $clients_data['user_id']=$this->db->insert_id();
+            $this->db->insert('clients', $clients_data);
+            $last_client_id = $this->db->insert_id();
+            $ref = date("Y") . sprintf("%05d", $last_client_id);
+            $this->db->where('id',$last_client_id);
+            $this->db->update('clients', array('ref_no'=>$ref));
+        }
         $this->db->trans_complete();
         if ($this->db->trans_status() === FALSE) return false;
         return true;
@@ -584,7 +583,7 @@ class Auth_model extends CI_Model
         $this->trigger_events('extra_where');
         $this->load->helper('email');
         $this->identity_column = valid_email($identity) ? 'email' : 'username';
-        $query = $this->db->select($this->identity_column . ', username, email, id, password, active, last_login, last_ip_address, avatar, gender, group_id, warehouse_id,  view_right, edit_right')
+        $query = $this->db->select($this->identity_column . ', username, email, id, password, active, last_login, last_ip_address, avatar, gender, group_id, view_right, edit_right')
             ->where($this->identity_column, $this->db->escape_str($identity))
             ->limit(1)
             ->get($this->tables['users']);
@@ -980,7 +979,8 @@ class Auth_model extends CI_Model
         if (isset($this->_ion_order_by) && isset($this->_ion_order)) {
             $this->db->order_by($this->_ion_order_by, $this->_ion_order);
         }
-
+        //only consider customized group
+//        $this->db->where('id>',3);
         $this->response = $this->db->get($this->tables['groups']);
 
         return $this;
@@ -1317,12 +1317,7 @@ class Auth_model extends CI_Model
         $this->trigger_events('pre_delete_group');
 
         $this->db->trans_begin();
-
-        // remove all users from this group
-        //$this->db->delete($this->tables['users_groups'], array($this->join['groups'] => $group_id));
-        // remove the group itself
         $this->db->delete($this->tables['groups'], array('id' => $group_id));
-
         if ($this->db->trans_status() === FALSE) {
             $this->db->trans_rollback();
             $this->trigger_events(array('post_delete_group', 'post_delete_group_unsuccessful'));
@@ -1495,28 +1490,6 @@ class Auth_model extends CI_Model
             $this->set_message('avatar_updated');
             return TRUE;
         }
-        return FALSE;
-    }
-
-    public function getBillingAddress($id)
-    {
-
-        $q = $this->db->get_where("addresses", array('user_id' => $id, 'type' => 'billing'), 1);
-        if ($q->num_rows() > 0) {
-            return $q->row();
-        }
-
-        return FALSE;
-    }
-
-    public function getDeliveryAddress($id)
-    {
-
-        $q = $this->db->get_where("addresses", array('user_id' => $id, 'type' => 'delivery'), 1);
-        if ($q->num_rows() > 0) {
-            return $q->row();
-        }
-
         return FALSE;
     }
 

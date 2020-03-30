@@ -12,17 +12,7 @@ class Db_model extends CI_Model
     //abdul Kader
     public function getTotalUsers()
     {
-
-        $user_details=$this->getUserByID($this->session->userdata('user_id'));
-        $zone_id = null;
-        $division_id = null;
-        if (!$this->Owner && !$this->Admin && $user_details->zone) $zone_id = $user_details->zone;
-        if (!$this->Owner && !$this->Admin && $user_details->division) $division_id = $user_details->division;
-
         $this->db->select('count(id) as total', FALSE);
-        if (!$this->Owner && !$this->Admin) $this->db->where('users.warehouse_id', $this->session->userdata('warehouse_id'));
-        if($zone_id) $this->db->where('users.zone',$zone_id);
-        if($division_id) $this->db->where('users.division',$division_id);
         $q = $this->db->get('users');
         if ($q->num_rows() > 0) {
             return $q->row();
@@ -36,7 +26,7 @@ class Db_model extends CI_Model
 
 
         $this->db->select('count(id) as total', FALSE);
-        if (!$this->Owner && !$this->Admin)  $this->db->where('users.id', $this->session->userdata('user_id'));
+        if (!$this->Owner && !$this->Admin) $this->db->where('users.id', $this->session->userdata('user_id'));
         $q = $this->db->get('users');
         if ($q->num_rows() > 0) {
             return $q->row();
@@ -46,21 +36,10 @@ class Db_model extends CI_Model
 
     public function getLatestUsers()
     {
-        $user_details=$this->getUserByID($this->session->userdata('user_id'));
-        $zone_id = null;
-        $division_id = null;
-        if (!$this->Owner && !$this->Admin && $user_details->zone) $zone_id = $user_details->zone;
-        if (!$this->Owner && !$this->Admin && $user_details->division) $division_id = $user_details->division;
-
-
         $this->db->select('*')
             ->from('users')
-//            ->join('companies', 'sales.customer_id = companies.id', 'left')
             ->limit(5);
         $this->db->order_by('users.id', 'desc');
-        if (!$this->Owner && !$this->Admin) $this->db->where('users.warehouse_id', $this->session->userdata('warehouse_id'));
-        if($zone_id) $this->db->where('users.zone',$zone_id);
-        if($division_id) $this->db->where('users.division',$division_id);
         $q = $this->db->get();
         if ($q->num_rows() > 0) {
             foreach (($q->result()) as $row) {
@@ -75,18 +54,10 @@ class Db_model extends CI_Model
     {
 
         $warehouse_id = null;
-        if (!$this->Owner || !$this->Admin) {
-            $warehouse_id = $this->session->userdata('warehouse_id');
-        }
 
-        $user_details=$this->getUserByID($this->session->userdata('user_id'));
-        $zone_id = null;
-        $division_id = null;
-        if (!$this->Owner && !$this->Admin && $user_details->zone) $zone_id = $user_details->zone;
-        if (!$this->Owner && !$this->Admin && $user_details->division) $division_id = $user_details->division;
-
+//        $user_details=$this->getUserByID($this->session->userdata('user_id'));
         $this->db->select('clients.*,users.first_name as wname')
-            ->from('Clients')
+            ->from('clients')
             ->join('users', 'users.username = clients.user_id', 'inner')
             ->limit(5);
         $this->db->order_by('users.id', 'desc');
@@ -100,97 +71,6 @@ class Db_model extends CI_Model
 
     }
 
-    public function getTotalCoaches()
-    {
-
-        $user_details=$this->getUserByID($this->session->userdata('user_id'));
-        $zone_id = null;
-        $division_id = null;
-        if (!$this->Owner && !$this->Admin && $user_details->zone) $zone_id = $user_details->zone;
-        if (!$this->Owner && !$this->Admin && $user_details->division) $division_id = $user_details->division;
-        $this->db->select('count(id) as total', FALSE);
-        if (!$this->Owner && !$this->Admin) $this->db->where('coaches.school_id', $this->session->userdata('warehouse_id'));
-        if($zone_id) $this->db->where('coaches.zone',$zone_id);
-        if($division_id) $this->db->where('coaches.division',$division_id);
-        $q = $this->db->get('coaches');
-        if ($q->num_rows() > 0) {
-            return $q->row();
-        }
-        return FALSE;
-    }
-
-
-    public function getLatestCoaches()
-    {
-
-        $warehouse_id = null;
-        if (!$this->Owner || !$this->Admin) {
-            $warehouse_id = $this->session->userdata('warehouse_id');
-        }
-
-        $user_details=$this->getUserByID($this->session->userdata('user_id'));
-        $zone_id = null;
-        $division_id = null;
-        if (!$this->Owner && !$this->Admin && $user_details->zone) $zone_id = $user_details->zone;
-        if (!$this->Owner && !$this->Admin && $user_details->division) $division_id = $user_details->division;
-
-        $this->db->select('coaches.*,warehouses.name as wname')
-            ->from('coaches')
-            ->join('users', 'users.username = coaches.username', 'inner')
-            ->join('warehouses', 'warehouses.id = coaches.school_id', 'inner')
-            ->limit(5);
-        if ($warehouse_id) $this->db->where('users.warehouse_id', $warehouse_id);
-        if($zone_id) $this->db->where('users.zone',$zone_id);
-        if($division_id) $this->db->where('users.division',$division_id);
-
-        $this->db->order_by('users.id', 'desc');
-        $q = $this->db->get();
-        if ($q->num_rows() > 0) {
-            foreach (($q->result()) as $row) {
-                $data[] = $row;
-            }
-            return $data;
-        }
-
-    }
-
-
-    public function getTotalSchools()
-    {
-
-        $this->db->select('count(id) as total', FALSE);
-        if (!$this->Owner && !$this->Admin) {
-            $this->db->where('warehouses.id', $this->session->userdata('warehouse_id'));
-        }
-        $q = $this->db->get('warehouses');
-        if ($q->num_rows() > 0) {
-            return $q->row();
-        }
-        return FALSE;
-    }
-
-
-    public function getLatestSchools()
-    {
-
-        $warehouse_id = null;
-        if (!$this->Owner || !$this->Admin) {
-            $warehouse_id = $this->session->userdata('warehouse_id');
-        }
-        $this->db->select('*')
-            ->from('warehouses')
-            ->limit(5);
-        if ($warehouse_id) $this->db->where('warehouses.id', $warehouse_id);
-        $this->db->order_by('warehouses.id', 'desc');
-        $q = $this->db->get();
-        if ($q->num_rows() > 0) {
-            foreach (($q->result()) as $row) {
-                $data[] = $row;
-            }
-            return $data;
-        }
-
-    }
 
     public function getUserByID($id)
     {
@@ -202,62 +82,5 @@ class Db_model extends CI_Model
     }
 
 
-    public function getZoneMaleHistory($start_date = NULL, $end_date = NULL)
-    {
-//        if (!$start_date) {
-//            $start_date = date('Y-m-d', strtotime('first day of this month')) . ' 00:00:00';
-//        }
-//        if (!$end_date) {
-//            $end_date = date('Y-m-d', strtotime('last day of this month')) . ' 23:59:59';
-//        }
-        $user_details=$this->getUserByID($this->session->userdata('user_id'));
-        $zone_id = null;
-        if (!$this->Owner && !$this->Admin && $user_details->zone) {
-            $zone_id = $user_details->zone;
-        }
-        if($zone_id) $this->db->where('zone',$zone_id);
-        $this->db
-            ->select("company_name,COUNT(id) as id")
-//            ->select_count('id')
-            ->from('Clients')
-            ->limit(10);
-        $q = $this->db->get();
-        if ($q->num_rows() > 0) {
-            foreach (($q->result()) as $row) {
-                $data[] = $row;
-            }
-            return $data;
-        }
-        return FALSE;
-    }
-
-    public function getZoneFemaleHistory($start_date = NULL, $end_date = NULL)
-    {
-//        if (!$start_date) {
-//            $start_date = date('Y-m-d', strtotime('first day of this month')) . ' 00:00:00';
-//        }
-//        if (!$end_date) {
-//            $end_date = date('Y-m-d', strtotime('last day of this month')) . ' 23:59:59';
-//        }
-        $user_details=$this->getUserByID($this->session->userdata('user_id'));
-        $zone_id = null;
-        if (!$this->Owner && !$this->Admin && $user_details->zone) {
-            $zone_id = $user_details->zone;
-        }
-        if($zone_id) $this->db->where('zone',$zone_id);
-        $this->db
-            ->select("company_name,COUNT(id) as id")
-//            ->select_count('id')
-            ->from('Clients')
-            ->limit(10);
-        $q = $this->db->get();
-        if ($q->num_rows() > 0) {
-            foreach (($q->result()) as $row) {
-                $data[] = $row;
-            }
-            return $data;
-        }
-        return FALSE;
-    }
 
 }

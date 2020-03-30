@@ -61,16 +61,6 @@ class MY_Controller extends CI_Controller {
                     'mysql_ldate' => '%m-%d-%Y %T'
                     );
             }
-            if(file_exists(APPPATH.'controllers'.DIRECTORY_SEPARATOR.'admin'.DIRECTORY_SEPARATOR.'Pos.php')) {
-                define("POS", 1);
-            } else {
-                define("POS", 0);
-            }
-            if(file_exists(APPPATH.'controllers'.DIRECTORY_SEPARATOR.'shop'.DIRECTORY_SEPARATOR.'Shop.php')) {
-                define("SHOP", 1);
-            } else {
-                define("SHOP", 0);
-            }
             if(!$this->Owner && !$this->Admin) {
                 $gp = $this->site->checkPermissions();
                 $this->GP = $gp[0];
@@ -88,12 +78,6 @@ class MY_Controller extends CI_Controller {
             $this->data['v'] = $this->v;
             $this->data['dt_lang'] = json_encode(lang('datatables_lang'));
             $this->data['dp_lang'] = json_encode(array('days' => array(lang('cal_sunday'), lang('cal_monday'), lang('cal_tuesday'), lang('cal_wednesday'), lang('cal_thursday'), lang('cal_friday'), lang('cal_saturday'), lang('cal_sunday')), 'daysShort' => array(lang('cal_sun'), lang('cal_mon'), lang('cal_tue'), lang('cal_wed'), lang('cal_thu'), lang('cal_fri'), lang('cal_sat'), lang('cal_sun')), 'daysMin' => array(lang('cal_su'), lang('cal_mo'), lang('cal_tu'), lang('cal_we'), lang('cal_th'), lang('cal_fr'), lang('cal_sa'), lang('cal_su')), 'months' => array(lang('cal_january'), lang('cal_february'), lang('cal_march'), lang('cal_april'), lang('cal_may'), lang('cal_june'), lang('cal_july'), lang('cal_august'), lang('cal_september'), lang('cal_october'), lang('cal_november'), lang('cal_december')), 'monthsShort' => array(lang('cal_jan'), lang('cal_feb'), lang('cal_mar'), lang('cal_apr'), lang('cal_may'), lang('cal_jun'), lang('cal_jul'), lang('cal_aug'), lang('cal_sep'), lang('cal_oct'), lang('cal_nov'), lang('cal_dec')), 'today' => lang('today'), 'suffix' => array(), 'meridiem' => array()));
-            $this->Settings->indian_gst = FALSE;
-            if ($this->Settings->invoice_view > 0) {
-                $this->Settings->indian_gst = $this->Settings->invoice_view == 2 ? TRUE : FALSE;
-                $this->Settings->format_gst = TRUE;
-                $this->load->library('gst');
-            }
         }
     }
 

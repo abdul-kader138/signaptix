@@ -166,7 +166,7 @@ class Sma
         if ($sdate) {
             return date($this->dateFormats['php_sdate'], strtotime($sdate));
         } else {
-            return '0000-00-00';
+            return '';
         }
     }
 

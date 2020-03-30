@@ -32,14 +32,6 @@ class MY_Loader extends CI_Loader {
 		$this->my_model($model, $name, $db_conn, 'admin');
 	}
 
-	public function api_model($model, $name = '', $db_conn = FALSE) {
-        $this->my_model($model, $name, $db_conn, 'api');
-    }
-
-    public function shop_model($model, $name = '', $db_conn = FALSE) {
-		$this->my_model($model, $name, $db_conn, 'shop');
-	}
-
 	public function my_model($model, $name = '', $db_conn = FALSE, $dist = '') {
 		if (empty($model)) {
 			return $this;

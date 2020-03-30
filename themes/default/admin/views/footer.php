@@ -54,6 +54,5 @@ $s2_file_date = $this->parser->parse_string($s2_lang_file, $s2_data, true);
         $('.mm_<?=$m?> a .chevron').removeClass("closed").addClass("opened");
     });
 </script>
-<?= (DEMO) ? '<script src="'.$assets.'js/ppp_ad.min.js"></script>' : ''; ?>
 </body>
 </html>

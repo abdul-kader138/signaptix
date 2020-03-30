@@ -54,8 +54,7 @@ class Auth extends MY_Controller
             ->from("users")
             ->join('groups', 'users.group_id=groups.id', 'left')
             ->group_by('users.id')
-            ->where('company_id', NULL)
-            ->where('groups.id>', '3')
+//            ->where('groups.id>', '3')
             ->edit_column('active', '$1__$2', 'active, id')
             ->add_column("Actions", "<div class=\"text-center\"><a href='" . admin_url('auth/profile/$1') . "' class='tip' title='" . lang("edit_user") . "'><i class=\"fa fa-edit\"></i></a></div>", "id");
 
@@ -117,7 +116,6 @@ class Auth extends MY_Controller
         $this->data['csrf'] = $this->_get_csrf_nonce();
         $this->data['user'] = $user;
         $this->data['groups'] = $groups;
-        $this->data['warehouses'] = $this->site->getAllWarehouses();
 
         $this->data['error'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('error');
         $this->data['password'] = array(
@@ -532,25 +530,21 @@ class Auth extends MY_Controller
                 'first_name' => $this->input->post('first_name'),
                 'last_name' => $this->input->post('last_name'),
                 'phone' => $this->input->post('phone'),
-                'gender' => $this->input->post('gender'),
                 'group_id' => $this->input->post('group') ? $this->input->post('group') : '3',
-                'warehouse_id' => $this->input->post('warehouse'),
                 'view_right' => $this->input->post('view_right'),
                 'edit_right' => $this->input->post('edit_right'),
             );
             $active = $this->input->post('status');
         }
-        if ($this->form_validation->run() == true && $this->ion_auth->register($username, $password, $email, $additional_data, $active, $notify)) {
+        if ($this->form_validation->run() == true && $this->ion_auth->register($username, $password, $email, $additional_data,null, $active, $notify)) {
 
-            $this->session->set_flashdata('message', $this->ion_auth->messages());
+            $this->session->set_flashdata('message', 'Account Creation Successful');
             admin_redirect("auth/users");
 
         } else {
 
             $this->data['error'] = (validation_errors() ? validation_errors() : ($this->ion_auth->errors() ? $this->ion_auth->errors() : $this->session->flashdata('error')));
             $this->data['groups'] = $this->ion_auth->groups()->result_array();
-//            $this->data['billers'] = $this->site->getAllCompanies('biller');
-            $this->data['warehouses'] = $this->site->getAllWarehouses();
             $bc = array(array('link' => admin_url('home'), 'page' => lang('home')), array('link' => admin_url('auth/users'), 'page' => lang('users')), array('link' => '#', 'page' => lang('create_user')));
             $meta = array('page_title' => lang('users'), 'bc' => $bc);
             $this->page_construct('auth/create_user', $meta, $this->data);
@@ -587,7 +581,6 @@ class Auth extends MY_Controller
                         'first_name' => $this->input->post('first_name'),
                         'last_name' => $this->input->post('last_name'),
                         'phone' => $this->input->post('phone'),
-                        'gender' => $this->input->post('gender'),
                     );
                 } elseif ($this->ion_auth->in_group('customer', $id) || $this->ion_auth->in_group('supplier', $id)) {
                     $data = array(
@@ -603,10 +596,10 @@ class Auth extends MY_Controller
                         'username' => $this->input->post('username'),
                         'email' => $this->input->post('email'),
                         'phone' => $this->input->post('phone'),
-                        'gender' => $this->input->post('gender'),
+//                        'gender' => $this->input->post('gender'),
                         'active' => $this->input->post('status'),
                         'group_id' => $this->input->post('group'),
-                        'warehouse_id' => $this->input->post('warehouse') ? $this->input->post('warehouse') : NULL,
+//                        'warehouse_id' => $this->input->post('warehouse') ? $this->input->post('warehouse') : NULL,
                         'view_right' => $this->input->post('view_right'),
                         'edit_right' => $this->input->post('edit_right'),
                     );
@@ -617,7 +610,7 @@ class Auth extends MY_Controller
                     'first_name' => $this->input->post('first_name'),
                     'last_name' => $this->input->post('last_name'),
                     'phone' => $this->input->post('phone'),
-                    'gender' => $this->input->post('gender'),
+//                    'gender' => $this->input->post('gender'),
                     'active' => $this->input->post('status'),
                 );
             } else {
@@ -625,7 +618,7 @@ class Auth extends MY_Controller
                     'first_name' => $this->input->post('first_name'),
                     'last_name' => $this->input->post('last_name'),
                     'phone' => $this->input->post('phone'),
-                    'gender' => $this->input->post('gender'),
+//                    'gender' => $this->input->post('gender'),
                 );
             }
 

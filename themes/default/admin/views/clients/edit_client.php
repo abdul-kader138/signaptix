@@ -37,7 +37,7 @@
                             <div class="form-group">
                                 <?php echo lang('Company_Address', 'Company_Address') . '<b> *</b>'; ?>
                                 <div class="controls">
-                                    <?php echo form_textarea('company_address', (isset($_POST['company_address']) ? $_POST['company_address'] : $client->company_address), 'class="form-control" id="company_address" required="required" pattern=".{3,10}"'); ?>
+                                    <?php echo form_textarea('company_address', (isset($_POST['company_address']) ? $_POST['company_address'] : $client->company_address), 'class="form-control" id="company_address" required="required"'); ?>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -85,7 +85,7 @@
                             <div class="form-group">
                                 <?php echo lang('Mailing_Address', 'Mailing_Address') . '<b> *</b>'; ?>
                                 <div class="controls">
-                                    <?php echo form_textarea('mailing_address', (isset($_POST['mailing_address']) ? $_POST['mailing_address'] : $client->mailing_address), 'class="form-control" id="mailing_address" required="required" pattern=".{3,10}"'); ?>
+                                    <?php echo form_textarea('mailing_address', (isset($_POST['mailing_address']) ? $_POST['mailing_address'] : $client->mailing_address), 'class="form-control" id="mailing_address" required="required" '); ?>
                                 </div>
                             </div>
                             <div class="form-group">

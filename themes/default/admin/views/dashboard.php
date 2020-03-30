@@ -51,24 +51,86 @@ foreach ($zone_female_history as $zones_m) {
 <script src="https://code.highcharts.com/modules/export-data.js"></script>
 <script type="text/javascript">
     $(function () {
+
+        Highcharts.chart('bschart_js', {
+            chart: {
+                plotBackgroundColor: null,
+                plotBorderWidth: 0,
+                plotShadow: false
+            },
+            title: {
+                text: 'Job Summary',
+                align: 'center',
+                // verticalAlign: 'middle',
+                // y: 60
+            },
+            tooltip: {
+                pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+            },
+            accessibility: {
+                point: {
+                    valueSuffix: '%'
+                }
+            },
+            plotOptions: {
+                pie: {
+                    dataLabels: {
+                        enabled: true,
+
+                        distance: -50,
+                        style: {
+                            fontWeight: 'bold',
+                            color: 'white'
+                        }
+                    },
+                    startAngle: -90,
+                    endAngle: 90,
+                    center: ['50%', '75%'],
+                    size: '110%'
+                }
+            },
+            series: [{
+                type: 'pie',
+                name: 'Job',
+                innerSize: '50%',
+                data: [
+                    ['Jobs Open', 57],
+                    ['Work In Process', 37],
+                    {
+                        name: 'Job Closed',
+                        y: 6,
+                        dataLabels: {
+                            enabled: true
+                        }
+                    }
+                ]
+            }]
+        });
+
         Highcharts.chart('bschart', {
             chart: {
                 type: 'column'
             },
             title: {
-                text: 'Registration By Zone'
+                text: 'Monthly Wise Job Summary'
             },
             subtitle: {
                 text: ''
             },
             xAxis: {
                 categories: [
-                    'Central',
-                    'East',
-                    'North',
-                    'South',
-                    'Tobago'
-
+                    'Jan',
+                    'Feb',
+                    'Mar',
+                    'Apr',
+                    'May',
+                    'Jun',
+                    'Jul',
+                    'Aug',
+                    'Sep',
+                    'Oct',
+                    'Nov',
+                    'Dec'
                 ],
                 crosshair: false
             },
@@ -81,24 +143,25 @@ foreach ($zone_female_history as $zones_m) {
             tooltip: {
                 headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
                 pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-                '<td style="padding:0"><b>{point.y:.1f} </b></td></tr>',
+                '<td style="padding:0"><b>{point.y:.1f} mm</b></td></tr>',
                 footerFormat: '</table>',
                 shared: true,
-                useHTML: true
+                useHTML: true,
+                enabled: true
             },
             plotOptions: {
                 column: {
-                    pointPadding: 0,
+                    pointPadding: 0.2,
                     borderWidth: 0
                 }
             },
             series: [{
-                name: 'Client',
-                data: [<?php echo $m_central.",".$m_east.",".$m_north.",".$m_south.",".$m_tobago; ?>]
+                name: 'Job Initiated',
+                data: [83, 78, 98, 93, 106, 84, 105, 104, 91, 83, 106, 92]
 
             }, {
-                name: 'Notary',
-                data: [<?php echo $f_central.",".$f_east.",".$f_north.",".$f_south.",".$f_tobago; ?>]
+                name: 'Job Resolved',
+                data: [49, 71, 97, 87, 100, 82, 85, 70, 87, 75, 95, 54]
 
             }]
         });
@@ -106,72 +169,87 @@ foreach ($zone_female_history as $zones_m) {
 
 </script>
 
+
 <div class="row" style="margin-bottom: 5px;">
     <div class="col-sm-12">
         <div class="col-sm-3">
-            <div class="small-box padding1010" style="background-color: #428BCA">
-                <h2 class="bold" style="color: white"><?= lang('Total_Users') ?></h2>
-                <i class="icon fa fa-user"></i>
-
-                <h1 class="bold">&nbsp;&nbsp;</h1>
-
-                <p class="bold">
-                <h1 style="text-align: center;color: white;"><?= $total_users->total ?></h1></p>
-            </div>
-        </div>
-
-        <div class="col-sm-3">
-            <div class="small-box padding1010 bdarkGreen">
-                <h2 class="bold" style="color: white"><?= lang('Total_Jobs') ?></h2>
-                <i class="icon fa fa-heart"></i>
-
-                <h1 class="bold">&nbsp;&nbsp;</h1>
-
-                <p class="bold">
-                <h1 style="text-align: center;color: white;"><?= $total_coaches->total ? $total_coaches->total : 0 ?></h1></p>
+            <div class="card mini-stat bg-blue">
+                <div class="card-body mini-stat-img">
+                    <div class="mini-stat-icon"><i class="fa fa-users float-right"></i></div>
+                    <div class="text-white">
+                        <h6 class="text-uppercase mb-3"></h6>
+                        <h5 >Total Users</h5>
+                        <a class="text-card-muted text-font" href="#"><?= $total_clients->total ? $total_clients->total : 0 ?></a></div>
+                </div>
             </div>
         </div>
         <div class="col-sm-3">
-            <div class="small-box padding1010 bpurple">
-                <h2 class="bold" style="color: white"><?= lang('Total_Client') ?></h2>
-                <i class="icon fa fa-star"></i>
-
-                <h1 class="bold">&nbsp;&nbsp;</h1>
-
-                <p class="bold">
-
-                <h1 style="text-align: center;color: white;"><?= $total_clients->total ? $total_clients->total : 0 ?></h1></p>
-
+            <div class="card mini-stat bg-mild">
+                <div class="card-body mini-stat-img">
+                    <div class="mini-stat-icon"><i class="fa fa-user-plus float-right"></i></div>
+                    <div class="text-white">
+                        <h6 class="text-uppercase mb-3"></h6>
+                        <h5 >Total Clients</h5>
+                        <a class="text-card-muted text-font" href="#"><?= $total_clients->total ? $total_clients->total : 0 ?></a></div>
+                </div>
             </div>
         </div>
         <div class="col-sm-3">
-            <div class="small-box padding1010 " style="background-color: #ffc582">
-                <h2 class="bold" style="color: white"><?= lang('Total_Notary') ?></h2>
-                <i class="icon fa fa-plus-circle"></i>
+            <div class="card mini-stat bg-purple">
+                <div class="card-body mini-stat-img">
+                    <div class="mini-stat-icon"><i class="fa fa-user-plus float-right"></i></div>
+                    <div class="text-white">
+                        <h6 class="text-uppercase mb-3"></h6>
+                        <h5 >Total Notary Person</h5>
+                        <a class="text-card-muted text-font" href="#">0</a></div>
 
-                <h1 class="bold">&nbsp;&nbsp;</h1>
-
-                <p class="bold">
-                <h1 style="text-align: center;color: white;"><?= $total_schools->total ? $total_schools->total : 0 ?></h1></p>
+                </div>
             </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="card mini-stat bg-pink">
+                <div class="card-body mini-stat-img">
+                    <div class="mini-stat-icon"><i class="fa fa-tasks float-right"></i></div>
+                    <div class="text-white">
+                        <h6 class="text-uppercase mb-3"></h6>
+                        <h5 >Total Jobs</h5>
+                        <a class="text-card-muted text-font" href="#">0</a></div>
 
+                </div>
+            </div>
         </div>
     </div>
 
 </div>
 
-<div class="row" style="margin-bottom: 15px;">
-    <div class="col-sm-12">
+<div class="row">
+    <div class="col-sm-8">
         <div class="box">
             <div class="box-header">
                 <h2 class="blue"><i
-                            class="fa-fw fa fa-line-chart"></i><?= lang('Registration By Zone'); ?>
+                            class="fa-fw fa fa-line-chart"></i>Monthly Wise Job Summary
                 </h2>
             </div>
             <div class="box-content">
                 <div class="row">
                     <div class="col-md-12">
                         <div id="bschart" style="width:100%; height:450px;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-4">
+        <div class="box">
+            <div class="box-header">
+                <h2 class="blue"><i
+                            class="fa-fw fa fa-line-chart"></i>Job Summary
+                </h2>
+            </div>
+            <div class="box-content">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div id="bschart_js" style="width:100%; height:450px;"></div>
                     </div>
                 </div>
             </div>
@@ -243,7 +321,7 @@ foreach ($zone_female_history as $zones_m) {
                                 </div>
 
                             <?php }
-                            if ($Owner || $Admin ) { ?>
+                            if ($Owner || $Admin) { ?>
 
                                 <div id="coaches" class="tab-pane fade">
                                     <div class="row">
@@ -302,7 +380,8 @@ foreach ($zone_female_history as $zones_m) {
                                                         <th><?= $this->lang->line("Full_Name"); ?></th>
                                                         <th><?= $this->lang->line("User_Name"); ?></th>
                                                         <th><?= $this->lang->line("Email"); ?></th>
-                                                        <th><?= $this->lang->line("Phone"); ?></th> </tr>
+                                                        <th><?= $this->lang->line("Phone"); ?></th>
+                                                    </tr>
                                                     </thead>
                                                     <tbody>
                                                     <?php if (!empty($players)) {
@@ -330,14 +409,14 @@ foreach ($zone_female_history as $zones_m) {
                                 </div>
 
                             <?php }
-                            if ($Owner || $Admin ) { ?>
+                            if ($Owner || $Admin) { ?>
 
                                 <div id="teams" class="tab-pane fade">
                                     <div class="row">
                                         <div class="col-sm-12">
                                             <div class="table-responsive">
                                                 <table id="transfers-tbl" cellpadding="0" cellspacing="0" border="0"
-                                                       class="table table-bordered table-hover table-striped"
+                                                       class="table table-bordered table-hover table-striped bg-blue"
                                                        style="margin-bottom: 0;">
                                                     <thead>
                                                     <tr>

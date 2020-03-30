@@ -235,23 +235,6 @@ class Site extends CI_Model
     }
 
 
-    public function getAllZone()
-    {
-        $user_details = $this->getUserByID($this->session->userdata('user_id'));
-        $zone_id = null;
-        if (!$this->Owner && !$this->Admin && $user_details->zone) {
-            $zone_id = $user_details->zone;
-        }
-        if ($zone_id) $this->db->where('name', $zone_id);
-        $q = $this->db->get('brands');
-        if ($q->num_rows() > 0) {
-            foreach (($q->result()) as $row) {
-                $data[] = $row;
-            }
-            return $data;
-        }
-        return FALSE;
-    }
 
     public function getUserByID($id)
     {
