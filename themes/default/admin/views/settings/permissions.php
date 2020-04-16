@@ -61,16 +61,19 @@
                                     <td>
                                     </td>
                                 </tr>
-
                                 <tr>
-                                    <td><?= lang("Notary"); ?></td>
+                                    <td><?= lang("Notaries"); ?></td>
                                     <td class="text-center">
+                                        <input type="checkbox" value="1" class="checkbox" name="notaries-index" <?php echo $p->{'notaries-index'} ? "checked" : ''; ?>>
                                     </td>
                                     <td class="text-center">
+                                        <input type="checkbox" value="1" class="checkbox" name="notaries-add" <?php echo $p->{'notaries-add'} ? "checked" : ''; ?>>
                                     </td>
                                     <td class="text-center">
+                                        <input type="checkbox" value="1" class="checkbox" name="notaries-edit" <?php echo $p->{'notaries-edit'} ? "checked" : ''; ?>>
                                     </td>
                                     <td class="text-center">
+                                        <input type="checkbox" value="1" class="checkbox" name="notaries-delete" <?php echo $p->{'notaries-delete'} ? "checked" : ''; ?>>
                                     </td>
                                     <td>
                                     </td>

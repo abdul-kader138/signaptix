@@ -782,16 +782,26 @@ class Auth extends MY_Controller
                 'last_name' => $this->input->post('last_name'),
                 'company' => $this->input->post('company'),
                 'phone' => $this->input->post('phone'),
-                'group_id' => (($this->input->post('phone')=='Notary') ? 3 : 2),
+                'group_id' => (($this->input->post('user_type')=='Notary') ? 3 : 2),
             );
 
-            $clients_data = array(
-                'company_address' => $this->input->post('address'),
-                'company_name' => $this->input->post('company'),
-                'company_phone' => $this->input->post('phone'),
-                'company_email' => $this->input->post('email'),
-                'created_date' => date('Y-m-d h:i:s'),
-            );
+            if($this->input->post('user_type')=='Notary'){
+                $clients_data = array(
+                    'address' => $this->input->post('address'),
+                    'notary_phone' => $this->input->post('phone'),
+                    'notary_email' => $this->input->post('email'),
+                    'created_date' => date('Y-m-d h:i:s'),
+                );
+            }else{
+                $clients_data = array(
+                    'company_address' => $this->input->post('address'),
+                    'company_name' => $this->input->post('company'),
+                    'company_phone' => $this->input->post('phone'),
+                    'company_email' => $this->input->post('email'),
+                    'created_date' => date('Y-m-d h:i:s'),
+                );
+            }
+
         }
         $t=$this->form_validation->run();
         if ($this->form_validation->run() == true && $this->ion_auth->register($username, $password, $email, $additional_data,$clients_data)) {

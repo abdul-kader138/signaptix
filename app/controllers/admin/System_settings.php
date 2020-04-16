@@ -519,13 +519,13 @@ class System_settings extends MY_Controller
                 'clients-edit' => $this->input->post('clients-edit'),
                 'clients-add' => $this->input->post('clients-add'),
                 'clients-delete' => $this->input->post('clients-delete'),
+                'notaries-index' => $this->input->post('notaries-index'),
+                'notaries-edit' => $this->input->post('notaries-edit'),
+                'notaries-add' => $this->input->post('notaries-add'),
+                'notaries-delete' => $this->input->post('notaries-delete'),
+
 
             );
-
-            if (POS) {
-                $data['pos-index'] = $this->input->post('pos-index');
-            }
-
             //$this->sma->print_arrays($data);
         }
 

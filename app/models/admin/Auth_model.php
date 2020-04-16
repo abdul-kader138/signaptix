@@ -558,13 +558,21 @@ class Auth_model extends CI_Model
         $this->db->trans_strict(TRUE);
         $this->db->trans_start();
         $this->db->insert($this->tables['users'], $user_data);
-        if($clients_data){
+        if($clients_data && $user_data['group_id']==2){
             $clients_data['user_id']=$this->db->insert_id();
             $this->db->insert('clients', $clients_data);
             $last_client_id = $this->db->insert_id();
             $ref = date("Y") . sprintf("%05d", $last_client_id);
             $this->db->where('id',$last_client_id);
             $this->db->update('clients', array('ref_no'=>$ref));
+        }
+        if($clients_data && $user_data['group_id']==3){
+            $clients_data['user_id']=$this->db->insert_id();
+            $this->db->insert('notaries', $clients_data);
+            $last_client_id = $this->db->insert_id();
+            $ref = date("Y") . sprintf("%05d", $last_client_id);
+            $this->db->where('id',$last_client_id);
+            $this->db->update('notaries', array('ref_no'=>$ref));
         }
         $this->db->trans_complete();
         if ($this->db->trans_status() === FALSE) return false;

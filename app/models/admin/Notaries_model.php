@@ -76,8 +76,51 @@ class Notaries_model extends CI_Model
         if ($this->db->trans_status() === FALSE) return false;
         return true;
     }
+    public function addNotaryBackGroundCheck($data = array(),$notary_id)
+    {
+        $this->db->trans_strict(TRUE);
+        $this->db->trans_start();
+        $this->db->where('notary_id',$notary_id);
+        $this->db->delete('notary_background_check');
+        $this->db->insert('notary_background_check', $data);
+        $this->db->trans_complete();
+        if ($this->db->trans_status() === FALSE) return false;
+        return true;
+    }
 
-
+    public function addNotaryInsurance($data = array(),$notary_id)
+    {
+        $this->db->trans_strict(TRUE);
+        $this->db->trans_start();
+        $this->db->where('notary_id',$notary_id);
+        $this->db->delete('notary_insurance');
+        $this->db->insert('notary_insurance', $data);
+        $this->db->trans_complete();
+        if ($this->db->trans_status() === FALSE) return false;
+        return true;
+    }
+    public function addNotaryTraining($data = array(),$notary_id)
+    {
+        $this->db->trans_strict(TRUE);
+        $this->db->trans_start();
+        $this->db->where('notary_id',$notary_id);
+        $this->db->delete('notary_training');
+        $this->db->insert('notary_training', $data);
+        $this->db->trans_complete();
+        if ($this->db->trans_status() === FALSE) return false;
+        return true;
+    }
+    public function addNotaryPayment($data = array(),$notary_id)
+    {
+        $this->db->trans_strict(TRUE);
+        $this->db->trans_start();
+        $this->db->where('notary_id',$notary_id);
+        $this->db->delete('notary_payments');
+        $this->db->insert('notary_payments', $data);
+        $this->db->trans_complete();
+        if ($this->db->trans_status() === FALSE) return false;
+        return true;
+    }
     public function getNotaryByID($id)
     {
         $q = $this->db->get_where('notaries', array('id' => $id), 1);
@@ -120,6 +163,39 @@ class Notaries_model extends CI_Model
         }
         return FALSE;
     }
+    public function getBackgroundCheckByID($id)
+    {
+        $q = $this->db->get_where('notary_background_check', array('notary_id' => $id), 1);
+        if ($q->num_rows() > 0) {
+            return $q->row();
+        }
+        return FALSE;
+    }
+    public function getInsuranceByID($id)
+{
+    $q = $this->db->get_where('notary_insurance', array('notary_id' => $id), 1);
+    if ($q->num_rows() > 0) {
+        return $q->row();
+    }
+    return FALSE;
+}
+
+    public function getTrainingByID($id)
+    {
+        $q = $this->db->get_where('notary_training', array('notary_id' => $id), 1);
+        if ($q->num_rows() > 0) {
+            return $q->row();
+        }
+        return FALSE;
+    }
+    public function getPaymentByID($id)
+    {
+        $q = $this->db->get_where('notary_payments', array('notary_id' => $id), 1);
+        if ($q->num_rows() > 0) {
+            return $q->row();
+        }
+        return FALSE;
+    }
     public function getUsersByID($id)
     {
         $q = $this->db->get_where('users', array('id' => $id), 1);
@@ -151,6 +227,21 @@ class Notaries_model extends CI_Model
         $this->db->delete('notaries');
         $this->db->where('id',$user_id);
         $this->db->delete('users');
+//        $this->db->where('notary_id',$notary_id);
+//        $this->db->delete('notary_commission');
+//        $this->db->where('notary_id',$notary_id);
+//        $this->db->delete('notary_electronic_commission');
+//        $this->db->where('notary_id',$notary_id);
+//        $this->db->delete('notary_producer_license');
+//        $this->db->where('notary_id',$notary_id);
+//        $this->db->delete('notary_bar_license');
+//        $this->db->where('notary_id',$notary_id);
+//        $this->db->delete('notary_background_check');
+//        $this->db->where('notary_id',$notary_id);
+//        $this->db->delete('notary_insurance');
+//        $this->db->where('notary_id',$notary_id);
+//        $this->db->delete('notary_training');
+
         $this->db->trans_complete();
         if ($this->db->trans_status() === FALSE) return false;
         else return true;

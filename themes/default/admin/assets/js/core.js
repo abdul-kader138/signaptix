@@ -1382,7 +1382,17 @@ $('body').on('click', '.client_link td:not(:first-child, :nth-child(2), :last-ch
     });
     $('#myModal').modal('show');
 });
-
+$('body').on('click', '.notary_link td:not(:first-child, :nth-child(2), :last-child)', function () {
+    $('#myModal').modal({
+        remote:
+        site.base_url +
+        'notaries/modal_view/' +
+        $(this)
+            .parent('.notary_link')
+            .attr('id'),
+    });
+    $('#myModal').modal('show');
+});
 
 $('body').on('click', '.coaches_link td:not(:first-child, :nth-child(2), :last-child)', function () {
     $('#myModal').modal({

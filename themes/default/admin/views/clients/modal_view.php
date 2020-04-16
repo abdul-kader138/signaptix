@@ -1,4 +1,10 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed'); ?>
+<style>
+    td {
+        word-break: break-all
+    }
+</style>
+
 <div class="modal-dialog modal-lg">
     <div class="modal-content">
         <div class="modal-header">

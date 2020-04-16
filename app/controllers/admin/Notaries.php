@@ -62,7 +62,7 @@ class Notaries extends MY_Controller
         }
         $this->load->library('datatables');
         $this->datatables
-            ->select($this->db->dbprefix('notaries') . ".id as ids," . $this->db->dbprefix('users') . ".avatar," . $this->db->dbprefix('notaries') . ".ref_no as ref," . $this->db->dbprefix('notaries') . ".created_by," . $this->db->dbprefix('notaries') . ".address," . $this->db->dbprefix('notaries') . ".created_date," . $this->db->dbprefix('notaries') . ".notary_email," . $this->db->dbprefix('notaries') . ".notary_phone, concat(" . $this->db->dbprefix('users') . ".first_name,' ', " . $this->db->dbprefix('users') . ".last_name) as u_name")
+            ->select($this->db->dbprefix('notaries') . ".id as ids," . $this->db->dbprefix('users') . ".avatar," . $this->db->dbprefix('notaries') . ".ref_no as ref, concat(" . $this->db->dbprefix('users') . ".first_name,' '," . $this->db->dbprefix('users') . ".last_name) as u_name,"  . $this->db->dbprefix('notaries') . ".notary_email," . $this->db->dbprefix('notaries') . ".notary_phone," . $this->db->dbprefix('notaries') . ".address," . $this->db->dbprefix('notaries') . ".created_date")
             ->from("users");
         $this->datatables->join('notaries', 'users.id=notaries.user_id', 'inner');
 
@@ -90,14 +90,14 @@ class Notaries extends MY_Controller
         $this->data['title'] = "Add Client";
         $this->load->helper('security');
         $this->form_validation->set_rules('username', lang("username"), 'xss_clean|trim|required|is_unique[users.username]');
-        $this->form_validation->set_rules('notary_email', lang("Email"), 'xss_clean|trim|required|is_unique[users.email]');
-        $this->form_validation->set_rules('contact_email', lang("contact_email"), 'xss_clean|trim|required|is_unique[users.email]');
+        $this->form_validation->set_rules('notary_email', lang("Email"), 'xss_clean|trim|required|valid_email|is_unique[users.email]');
+        $this->form_validation->set_rules('contact_email', lang("contact_email"), 'xss_clean|trim|required|valid_email|is_unique[users.email]');
         $this->form_validation->set_rules('note', lang("note"), 'xss_clean|trim');
-        $this->form_validation->set_rules('notary_phone', lang("Phone"), 'xss_clean|trim|required');
-        $this->form_validation->set_rules('notary_mobile', lang("Mobile_No"), 'xss_clean|trim|required');
-        $this->form_validation->set_rules('contact_phone', lang("contact_phone"), 'xss_clean|trim|required');
-        $this->form_validation->set_rules('notary_fax', lang("Fax"), 'xss_clean|trim|required');
-        $this->form_validation->set_rules('notary_office_phone', lang("Office_Phone"), 'xss_clean|trim|required');
+        $this->form_validation->set_rules('notary_phone', lang("Phone"), 'xss_clean|trim|required|regex_match[/^\+?[0-9-()]+$/]');
+        $this->form_validation->set_rules('notary_mobile', lang("Mobile_No"), 'xss_clean|trim|required|regex_match[/^\+?[0-9-()]+$/]');
+        $this->form_validation->set_rules('contact_phone', lang("contact_phone"), 'xss_clean|trim|required|regex_match[/^\+?[0-9-()]+$/]');
+        $this->form_validation->set_rules('notary_fax', lang("Fax"), 'xss_clean|trim|required|regex_match[/^\+?[0-9-()]+$/]');
+        $this->form_validation->set_rules('notary_office_phone', lang("Office_Phone"), 'xss_clean|trim|required|regex_match[/^\+?[0-9-()]+$/]');
         $this->form_validation->set_rules('address', lang("Address"), 'xss_clean|trim|required');
         $this->form_validation->set_rules('mailing_address', lang("mailing_address"), 'xss_clean|trim|required');
         $this->form_validation->set_rules('first_name', lang("first_name"), 'trim|required');
@@ -187,6 +187,10 @@ class Notaries extends MY_Controller
         $usr_details = $this->notaries_model->getUsersByID($pr_details->user_id);
         $producer_license = $this->notaries_model->getProducerLicenseByID($id);
         $bar_license = $this->notaries_model->getBarLicenseByID($id);
+        $background_check = $this->notaries_model->getBackgroundCheckByID($id);
+        $insurance = $this->notaries_model->getInsuranceByID($id);
+        $training = $this->notaries_model->getTrainingByID($id);
+        $payment = $this->notaries_model->getPaymentByID($id);
 
 
         if (!$this->Owner && !$this->Admin) {
@@ -197,14 +201,14 @@ class Notaries extends MY_Controller
             }
         }
         $this->load->helper('security');
-        $this->form_validation->set_rules('notary_email', lang("Email"), 'xss_clean|trim|required');
-        $this->form_validation->set_rules('contact_email', lang("contact_email"), 'xss_clean|trim|required');
+        $this->form_validation->set_rules('notary_email', lang("Email"), 'xss_clean|trim|required|valid_email');
+        $this->form_validation->set_rules('contact_email', lang("contact_email"), 'xss_clean|trim|required|valid_email');
         $this->form_validation->set_rules('note', lang("note"), 'xss_clean|trim');
-        $this->form_validation->set_rules('notary_phone', lang("Phone"), 'xss_clean|trim|required');
-        $this->form_validation->set_rules('notary_mobile', lang("Mobile_No"), 'xss_clean|trim|required');
-        $this->form_validation->set_rules('contact_phone', lang("contact_phone"), 'xss_clean|trim|required');
-        $this->form_validation->set_rules('notary_fax', lang("Fax"), 'xss_clean|trim|required');
-        $this->form_validation->set_rules('notary_office_phone', lang("Office_Phone"), 'xss_clean|trim|required');
+        $this->form_validation->set_rules('notary_phone', lang("Phone"), 'xss_clean|trim|required|regex_match[/^\+?[0-9-()]+$/]');
+        $this->form_validation->set_rules('notary_mobile', lang("Mobile_No"), 'xss_clean|trim|required|regex_match[/^\+?[0-9-()]+$/]');
+        $this->form_validation->set_rules('contact_phone', lang("contact_phone"), 'xss_clean|trim|required|regex_match[/^\+?[0-9-()]+$/]');
+        $this->form_validation->set_rules('notary_fax', lang("Fax"), 'xss_clean|trim|required|regex_match[/^\+?[0-9-()]+$/]');
+        $this->form_validation->set_rules('notary_office_phone', lang("Office_Phone"), 'xss_clean|trim|required|regex_match[/^\+?[0-9-()]+$/]');
         $this->form_validation->set_rules('address', lang("Address"), 'xss_clean|trim|required');
         $this->form_validation->set_rules('mailing_address', lang("mailing_address"), 'xss_clean|trim|required');
         $this->form_validation->set_rules('first_name', lang("first_name"), 'trim|required');
@@ -213,7 +217,9 @@ class Notaries extends MY_Controller
         $this->form_validation->set_rules('avatar', lang("avatar"), 'trim');
 
         if ($usr_details->email != $this->input->post('notary_email')) {
-            $this->data['error']="Information_Updated_Successfully."; }
+            $this->form_validation->set_rules('notary_email', lang("Email"), 'xss_clean|trim|valid_email|required|is_unique[users.email]');
+
+        }
 
         if ($this->form_validation->run() == true) {
             $image = $usr_details->avatar;
@@ -257,9 +263,11 @@ class Notaries extends MY_Controller
             $this->data['e_notary_commission'] = $pr_e_commission_details;
             $this->data['producer_license'] = $producer_license;
             $this->data['bar_license'] = $bar_license;
+            $this->data['background_check'] = $background_check;
+            $this->data['insurance'] = $insurance;
+            $this->data['training'] = $training;
             $this->data['user'] = $usr_details;
-            $this->data['notary_commission'] = $this->notaries_model->getNotaryCommissionByID($id);
-            $this->data['e_notary_commission'] = $this->notaries_model->getNotaryECommissionByID($id);
+            $this->data['payment'] = $payment;
             $this->data['nav'] = 'general_information';
             $this->data['error'] = (validation_errors() ? validation_errors() : $this->session->flashdata('error'));
 //            $this->data['csrf'] = $this->_get_csrf_nonce();
@@ -290,7 +298,10 @@ class Notaries extends MY_Controller
         $usr_details = $this->notaries_model->getUsersByID($pr_details->user_id);
         $producer_license = $this->notaries_model->getProducerLicenseByID($id);
         $bar_license = $this->notaries_model->getBarLicenseByID($id);
-
+        $background_check = $this->notaries_model->getBackgroundCheckByID($id);
+        $insurance = $this->notaries_model->getInsuranceByID($id);
+        $training = $this->notaries_model->getTrainingByID($id);
+        $payment = $this->notaries_model->getPaymentByID($id);
 
         if (!$this->Owner && !$this->Admin) {
             if ($this->session->userdata('user_id') != $pr_details->user_id) {
@@ -328,14 +339,18 @@ class Notaries extends MY_Controller
         }
 
         if ($this->form_validation->run() == true && $this->notaries_model->addNotaryCommission($notary_data, $id)) {
-            $this->data['error']="Information_Updated_Successfully.";
+            $this->session->set_flashdata('message', 'information successfully updated.');
         }
         $this->data['notary'] = $pr_details;
         $this->data['notary_commission'] = $pr_commission_details;
         $this->data['e_notary_commission'] = $pr_e_commission_details;
         $this->data['producer_license'] = $producer_license;
         $this->data['bar_license'] = $bar_license;
+        $this->data['background_check'] = $background_check;
+        $this->data['insurance'] = $insurance;
+        $this->data['training'] = $training;
         $this->data['user'] = $usr_details;
+        $this->data['payment'] = $payment;
         $this->data['error'] = (validation_errors() ? validation_errors() : $this->session->flashdata('error'));
 //        $this->data['csrf'] = $this->_get_csrf_nonce();
         $this->data['nav'] = 'commission';
@@ -366,7 +381,10 @@ class Notaries extends MY_Controller
         $usr_details = $this->notaries_model->getUsersByID($pr_details->user_id);
         $producer_license = $this->notaries_model->getProducerLicenseByID($id);
         $bar_license = $this->notaries_model->getBarLicenseByID($id);
-
+        $background_check = $this->notaries_model->getBackgroundCheckByID($id);
+        $insurance = $this->notaries_model->getInsuranceByID($id);
+        $training = $this->notaries_model->getTrainingByID($id);
+        $payment = $this->notaries_model->getPaymentByID($id);
 
         if (!$this->Owner && !$this->Admin) {
             if ($this->session->userdata('user_id') != $pr_details->user_id) {
@@ -404,14 +422,18 @@ class Notaries extends MY_Controller
         }
 
         if ($this->form_validation->run() == true && $this->notaries_model->addNotaryECommission($notary_data, $id)) {
-            $this->data['error']="Information_Updated_Successfully.";
+            $this->session->set_flashdata('message', 'information successfully updated.');
         }
         $this->data['notary'] = $pr_details;
         $this->data['notary_commission'] = $pr_commission_details;
         $this->data['e_notary_commission'] = $pr_e_commission_details;
         $this->data['producer_license'] = $producer_license;
         $this->data['bar_license'] = $bar_license;
+        $this->data['background_check'] = $background_check;
+        $this->data['insurance'] = $insurance;
+        $this->data['training'] = $training;
         $this->data['user'] = $usr_details;
+        $this->data['payment'] = $payment;
         $this->data['error'] = (validation_errors() ? validation_errors() : $this->session->flashdata('error'));
 //        $this->data['csrf'] = $this->_get_csrf_nonce();
         $this->data['nav'] = 'electronic_commission';
@@ -442,7 +464,10 @@ class Notaries extends MY_Controller
         $usr_details = $this->notaries_model->getUsersByID($pr_details->user_id);
         $producer_license = $this->notaries_model->getProducerLicenseByID($id);
         $bar_license = $this->notaries_model->getBarLicenseByID($id);
-
+        $background_check = $this->notaries_model->getBackgroundCheckByID($id);
+        $insurance = $this->notaries_model->getInsuranceByID($id);
+        $training = $this->notaries_model->getTrainingByID($id);
+        $payment = $this->notaries_model->getPaymentByID($id);
 
         if (!$this->Owner && !$this->Admin) {
             if ($this->session->userdata('user_id') != $pr_details->user_id) {
@@ -480,13 +505,15 @@ class Notaries extends MY_Controller
         }
 
         if ($this->form_validation->run() == true && $this->notaries_model->addNotaryProducerLicense($notary_data, $id)) {
-            $this->data['error']="Information_Updated_Successfully.";
+            $this->session->set_flashdata('message', 'information successfully updated.');
         }
         $this->data['notary'] = $pr_details;
         $this->data['notary_commission'] = $pr_commission_details;
         $this->data['e_notary_commission'] = $pr_e_commission_details;
         $this->data['producer_license'] = $producer_license;
         $this->data['bar_license'] = $bar_license;
+        $this->data['background_check'] = $background_check;
+        $this->data['insurance'] = $insurance;
         $this->data['user'] = $usr_details;
         $this->data['error'] = (validation_errors() ? validation_errors() : $this->session->flashdata('error'));
 //        $this->data['csrf'] = $this->_get_csrf_nonce();
@@ -518,7 +545,10 @@ class Notaries extends MY_Controller
         $usr_details = $this->notaries_model->getUsersByID($pr_details->user_id);
         $producer_license = $this->notaries_model->getProducerLicenseByID($id);
         $bar_license = $this->notaries_model->getBarLicenseByID($id);
-
+        $background_check = $this->notaries_model->getBackgroundCheckByID($id);
+        $insurance = $this->notaries_model->getInsuranceByID($id);
+        $training = $this->notaries_model->getTrainingByID($id);
+        $payment = $this->notaries_model->getPaymentByID($id);
 
         if (!$this->Owner && !$this->Admin) {
             if ($this->session->userdata('user_id') != $pr_details->user_id) {
@@ -556,14 +586,18 @@ class Notaries extends MY_Controller
         }
 
         if ($this->form_validation->run() == true && $this->notaries_model->addNotaryBarLicense($notary_data, $id)) {
-            $this->data['error']="Information_Updated_Successfully.";
+            $this->session->set_flashdata('message', 'information successfully updated.');
         }
         $this->data['notary'] = $pr_details;
         $this->data['notary_commission'] = $pr_commission_details;
         $this->data['e_notary_commission'] = $pr_e_commission_details;
         $this->data['producer_license'] = $producer_license;
         $this->data['bar_license'] = $bar_license;
+        $this->data['background_check'] = $background_check;
+        $this->data['insurance'] = $insurance;
+        $this->data['training'] = $training;
         $this->data['user'] = $usr_details;
+        $this->data['payment'] = $payment;
         $this->data['error'] = (validation_errors() ? validation_errors() : $this->session->flashdata('error'));
 //        $this->data['csrf'] = $this->_get_csrf_nonce();
         $this->data['nav'] = 'bar_license';
@@ -572,6 +606,337 @@ class Notaries extends MY_Controller
         $this->page_construct('notaries/edit_notary', $meta, $this->data);
 
     }
+
+    function edit_background_check($id = NULL)
+    {
+        if (!$this->Owner && !$this->Admin) {
+            $get_permission = $this->permission_details[0];
+            if ((!$get_permission['notaries-edit'])) {
+                $this->session->set_flashdata('warning', lang('access_denied'));
+                die("<script type='text/javascript'>setTimeout(function(){ window.top.location.href = '" . (isset($_SERVER["HTTP_REFERER"]) ? $_SERVER["HTTP_REFERER"] : site_url('welcome')) . "'; }, 10);</script>");
+                redirect($_SERVER["HTTP_REFERER"]);
+            }
+        }
+
+        if ($this->input->get('id')) {
+            $id = $this->input->get('id');
+        }
+
+        $pr_details = $this->notaries_model->getNotaryByID($id);
+        $pr_commission_details = $this->notaries_model->getNotaryCommissionByID($id);
+        $pr_e_commission_details = $this->notaries_model->getNotaryECommissionByID($id);
+        $usr_details = $this->notaries_model->getUsersByID($pr_details->user_id);
+        $producer_license = $this->notaries_model->getProducerLicenseByID($id);
+        $bar_license = $this->notaries_model->getBarLicenseByID($id);
+        $background_check = $this->notaries_model->getBackgroundCheckByID($id);
+        $insurance = $this->notaries_model->getInsuranceByID($id);
+        $training = $this->notaries_model->getTrainingByID($id);
+        $payment = $this->notaries_model->getPaymentByID($id);
+
+
+        if (!$this->Owner && !$this->Admin) {
+            if ($this->session->userdata('user_id') != $pr_details->user_id) {
+                $this->session->set_flashdata('warning', lang('access_denied'));
+                die("<script type='text/javascript'>setTimeout(function(){ window.top.location.href = '" . (isset($_SERVER["HTTP_REFERER"]) ? $_SERVER["HTTP_REFERER"] : site_url('welcome')) . "'; }, 10);</script>");
+                redirect($_SERVER["HTTP_REFERER"]);
+            }
+        }
+        $this->load->helper('security');
+        $this->form_validation->set_rules('company', lang("Company"), 'xss_clean|trim|required');
+        $this->form_validation->set_rules('url', lang("URL"), 'xss_clean|trim|required');
+        $this->form_validation->set_rules('issue_date', lang("Issue Date"), 'xss_clean|trim|required');
+        $this->form_validation->set_rules('background_check', lang("Background Check"),  'xss_clean|trim');
+
+        if (!$background_check->background_check && empty($_FILES['background_check']['name'])) {
+            $this->form_validation->set_rules('background_check', lang("Background Check"),  'required');
+        }
+        if ($this->form_validation->run() == true) {
+            $file_path = $background_check->background_check;
+            if ($_FILES['background_check']['size'] > 0) {
+                $file_path = $this->file_upload('assets/uploads/notary_background_check', 'background_check');
+//                unlink('assets/uploads/notary_commission/' . $file_path);
+//                $file_path = $file_path_new;
+            }
+
+            $notary_data = array(
+                'company' => $this->input->post('company'),
+                'url' => $this->input->post('url'),
+                'issue_date' => $this->sma->fsd($this->input->post('issue_date')),
+                'background_check' => $file_path,
+                'updated_date' => date('Y-m-d h:i:s'),
+                'updated_by' => $this->session->userdata('user_id'),
+                'notary_id' => $id
+            );
+        }
+
+        if ($this->form_validation->run() == true && $this->notaries_model->addNotaryBackGroundCheck($notary_data, $id)) {
+            $this->session->set_flashdata('message', 'information successfully updated.');
+        }
+        $this->data['notary'] = $pr_details;
+        $this->data['notary_commission'] = $pr_commission_details;
+        $this->data['e_notary_commission'] = $pr_e_commission_details;
+        $this->data['producer_license'] = $producer_license;
+        $this->data['bar_license'] = $bar_license;
+        $this->data['background_check'] = $background_check;
+        $this->data['insurance'] = $insurance;
+        $this->data['training'] = $training;
+        $this->data['user'] = $usr_details;
+        $this->data['payment'] = $payment;
+        $this->data['error'] = (validation_errors() ? validation_errors() : $this->session->flashdata('error'));
+//        $this->data['csrf'] = $this->_get_csrf_nonce();
+        $this->data['nav'] = 'background_check';
+        $bc = array(array('link' => base_url('home'), 'page' => lang('home')), array('link' => admin_url('notaries'), 'page' => lang('Notaries')), array('link' => '#', 'page' => lang('Edit_Notary')));
+        $meta = array('page_title' => lang('Notaries'), 'bc' => $bc);
+        $this->page_construct('notaries/edit_notary', $meta, $this->data);
+
+    }
+
+
+    function edit_insurance($id = NULL)
+    {
+        if (!$this->Owner && !$this->Admin) {
+            $get_permission = $this->permission_details[0];
+            if ((!$get_permission['notaries-edit'])) {
+                $this->session->set_flashdata('warning', lang('access_denied'));
+                die("<script type='text/javascript'>setTimeout(function(){ window.top.location.href = '" . (isset($_SERVER["HTTP_REFERER"]) ? $_SERVER["HTTP_REFERER"] : site_url('welcome')) . "'; }, 10);</script>");
+                redirect($_SERVER["HTTP_REFERER"]);
+            }
+        }
+
+        if ($this->input->get('id')) {
+            $id = $this->input->get('id');
+        }
+
+        $pr_details = $this->notaries_model->getNotaryByID($id);
+        $pr_commission_details = $this->notaries_model->getNotaryCommissionByID($id);
+        $pr_e_commission_details = $this->notaries_model->getNotaryECommissionByID($id);
+        $usr_details = $this->notaries_model->getUsersByID($pr_details->user_id);
+        $producer_license = $this->notaries_model->getProducerLicenseByID($id);
+        $bar_license = $this->notaries_model->getBarLicenseByID($id);
+        $background_check = $this->notaries_model->getBackgroundCheckByID($id);
+        $insurance = $this->notaries_model->getInsuranceByID($id);
+        $training = $this->notaries_model->getTrainingByID($id);
+        $payment = $this->notaries_model->getPaymentByID($id);
+
+        if (!$this->Owner && !$this->Admin) {
+            if ($this->session->userdata('user_id') != $pr_details->user_id) {
+                $this->session->set_flashdata('warning', lang('access_denied'));
+                die("<script type='text/javascript'>setTimeout(function(){ window.top.location.href = '" . (isset($_SERVER["HTTP_REFERER"]) ? $_SERVER["HTTP_REFERER"] : site_url('welcome')) . "'; }, 10);</script>");
+                redirect($_SERVER["HTTP_REFERER"]);
+            }
+        }
+        $this->load->helper('security');
+        $this->form_validation->set_rules('i_company', lang("Company"), 'xss_clean|trim|required');
+        $this->form_validation->set_rules('i_policy_number', lang("Policy Number"), 'xss_clean|trim|required');
+        $this->form_validation->set_rules('i_amount', lang("Amount"), 'xss_clean|trim|required');
+        $this->form_validation->set_rules('i_expiration_date', lang("Expiration Date"), 'xss_clean|trim|required');
+        $this->form_validation->set_rules('i_background_check', lang("Background Check Attachment"),  'xss_clean|trim');
+
+        if (!$insurance->i_background_check && empty($_FILES['i_background_check']['name'])) {
+            $this->form_validation->set_rules('i_background_check', lang("Background Check Attachment"),  'required');
+        }
+        if ($this->form_validation->run() == true) {
+            $file_path = $insurance->i_background_check;
+            if ($_FILES['i_background_check']['size'] > 0) {
+                $file_path = $this->file_upload('assets/uploads/notary_insurance', 'i_background_check');
+//                unlink('assets/uploads/notary_commission/' . $file_path);
+//                $file_path = $file_path_new;
+            }
+
+            $notary_data = array(
+                'i_company' => $this->input->post('i_company'),
+                'i_policy_number' => $this->input->post('i_policy_number'),
+                'i_amount' => $this->input->post('i_amount'),
+                'i_expiration_date' => $this->sma->fsd($this->input->post('i_expiration_date')),
+                'i_background_check' => $file_path,
+                'updated_date' => date('Y-m-d h:i:s'),
+                'updated_by' => $this->session->userdata('user_id'),
+                'notary_id' => $id
+            );
+        }
+
+        if ($this->form_validation->run() == true && $this->notaries_model->addNotaryInsurance($notary_data, $id)) {
+            $this->session->set_flashdata('message', 'information successfully updated.');
+        }
+        $this->data['notary'] = $pr_details;
+        $this->data['notary_commission'] = $pr_commission_details;
+        $this->data['e_notary_commission'] = $pr_e_commission_details;
+        $this->data['producer_license'] = $producer_license;
+        $this->data['bar_license'] = $bar_license;
+        $this->data['background_check'] = $background_check;
+        $this->data['insurance'] = $insurance;
+        $this->data['training'] = $training;
+        $this->data['user'] = $usr_details;
+        $this->data['payment'] = $payment;
+        $this->data['error'] = (validation_errors() ? validation_errors() : $this->session->flashdata('error'));
+//        $this->data['csrf'] = $this->_get_csrf_nonce();
+        $this->data['nav'] = 'insurance';
+        $bc = array(array('link' => base_url('home'), 'page' => lang('home')), array('link' => admin_url('notaries'), 'page' => lang('Notaries')), array('link' => '#', 'page' => lang('Edit_Notary')));
+        $meta = array('page_title' => lang('Notaries'), 'bc' => $bc);
+        $this->page_construct('notaries/edit_notary', $meta, $this->data);
+
+    }
+
+    function edit_training($id = NULL)
+    {
+        if (!$this->Owner && !$this->Admin) {
+            $get_permission = $this->permission_details[0];
+            if ((!$get_permission['notaries-edit'])) {
+                $this->session->set_flashdata('warning', lang('access_denied'));
+                die("<script type='text/javascript'>setTimeout(function(){ window.top.location.href = '" . (isset($_SERVER["HTTP_REFERER"]) ? $_SERVER["HTTP_REFERER"] : site_url('welcome')) . "'; }, 10);</script>");
+                redirect($_SERVER["HTTP_REFERER"]);
+            }
+        }
+
+        if ($this->input->get('id')) {
+            $id = $this->input->get('id');
+        }
+
+        $pr_details = $this->notaries_model->getNotaryByID($id);
+        $pr_commission_details = $this->notaries_model->getNotaryCommissionByID($id);
+        $pr_e_commission_details = $this->notaries_model->getNotaryECommissionByID($id);
+        $usr_details = $this->notaries_model->getUsersByID($pr_details->user_id);
+        $producer_license = $this->notaries_model->getProducerLicenseByID($id);
+        $bar_license = $this->notaries_model->getBarLicenseByID($id);
+        $background_check = $this->notaries_model->getBackgroundCheckByID($id);
+        $insurance = $this->notaries_model->getInsuranceByID($id);
+        $training = $this->notaries_model->getTrainingByID($id);
+        $payment = $this->notaries_model->getPaymentByID($id);
+
+        if (!$this->Owner && !$this->Admin) {
+            if ($this->session->userdata('user_id') != $pr_details->user_id) {
+                $this->session->set_flashdata('warning', lang('access_denied'));
+                die("<script type='text/javascript'>setTimeout(function(){ window.top.location.href = '" . (isset($_SERVER["HTTP_REFERER"]) ? $_SERVER["HTTP_REFERER"] : site_url('welcome')) . "'; }, 10);</script>");
+                redirect($_SERVER["HTTP_REFERER"]);
+            }
+        }
+        $this->load->helper('security');
+        $this->form_validation->set_rules('training', lang("Training Certification"), 'xss_clean|trim|required');
+        $this->form_validation->set_rules('training_certificate', lang("Training Certification Attachment"), 'xss_clean|trim');
+
+        if (!$training->training_certificate && empty($_FILES['training_certificate']['name'])) {
+            $this->form_validation->set_rules('training_certificate', lang("Training Certification Attachment"),  'required');
+        }
+        if ($this->form_validation->run() == true) {
+            $file_path = $training->training_certificate;
+            if ($_FILES['training_certificate']['size'] > 0) {
+                $file_path = $this->file_upload('assets/uploads/notary_training', 'training_certificate');
+//                unlink('assets/uploads/notary_commission/' . $file_path);
+//                $file_path = $file_path_new;
+            }
+
+            $notary_data = array(
+                'training' => $this->input->post('training'),
+                'training_certificate' =>$file_path,
+                'updated_date' => date('Y-m-d h:i:s'),
+                'updated_by' => $this->session->userdata('user_id'),
+                'notary_id' => $id
+            );
+        }
+
+        if ($this->form_validation->run() == true && $this->notaries_model->addNotaryTraining($notary_data, $id)) {
+            $this->session->set_flashdata('message', 'information successfully updated.');
+        }
+        $this->data['notary'] = $pr_details;
+        $this->data['notary_commission'] = $pr_commission_details;
+        $this->data['e_notary_commission'] = $pr_e_commission_details;
+        $this->data['producer_license'] = $producer_license;
+        $this->data['bar_license'] = $bar_license;
+        $this->data['background_check'] = $background_check;
+        $this->data['insurance'] = $insurance;
+        $this->data['training'] = $training;
+        $this->data['user'] = $usr_details;
+        $this->data['payment'] = $payment;
+        $this->data['error'] = (validation_errors() ? validation_errors() : $this->session->flashdata('error'));
+//        $this->data['csrf'] = $this->_get_csrf_nonce();
+        $this->data['nav'] = 'training';
+        $bc = array(array('link' => base_url('home'), 'page' => lang('home')), array('link' => admin_url('notaries'), 'page' => lang('Notaries')), array('link' => '#', 'page' => lang('Edit_Notary')));
+        $meta = array('page_title' => lang('Notaries'), 'bc' => $bc);
+        $this->page_construct('notaries/edit_notary', $meta, $this->data);
+
+    }
+
+    function edit_payment($id = NULL)
+    {
+        if (!$this->Owner && !$this->Admin) {
+            $get_permission = $this->permission_details[0];
+            if ((!$get_permission['notaries-edit'])) {
+                $this->session->set_flashdata('warning', lang('access_denied'));
+                die("<script type='text/javascript'>setTimeout(function(){ window.top.location.href = '" . (isset($_SERVER["HTTP_REFERER"]) ? $_SERVER["HTTP_REFERER"] : site_url('welcome')) . "'; }, 10);</script>");
+                redirect($_SERVER["HTTP_REFERER"]);
+            }
+        }
+
+        if ($this->input->get('id')) {
+            $id = $this->input->get('id');
+        }
+
+        $pr_details = $this->notaries_model->getNotaryByID($id);
+        $pr_commission_details = $this->notaries_model->getNotaryCommissionByID($id);
+        $pr_e_commission_details = $this->notaries_model->getNotaryECommissionByID($id);
+        $usr_details = $this->notaries_model->getUsersByID($pr_details->user_id);
+        $producer_license = $this->notaries_model->getProducerLicenseByID($id);
+        $bar_license = $this->notaries_model->getBarLicenseByID($id);
+        $background_check = $this->notaries_model->getBackgroundCheckByID($id);
+        $insurance = $this->notaries_model->getInsuranceByID($id);
+        $training = $this->notaries_model->getTrainingByID($id);
+        $payment = $this->notaries_model->getPaymentByID($id);
+
+        if (!$this->Owner && !$this->Admin) {
+            if ($this->session->userdata('user_id') != $pr_details->user_id) {
+                $this->session->set_flashdata('warning', lang('access_denied'));
+                die("<script type='text/javascript'>setTimeout(function(){ window.top.location.href = '" . (isset($_SERVER["HTTP_REFERER"]) ? $_SERVER["HTTP_REFERER"] : site_url('welcome')) . "'; }, 10);</script>");
+                redirect($_SERVER["HTTP_REFERER"]);
+            }
+        }
+        $this->load->helper('security');
+        $this->form_validation->set_rules('cheque_payable', lang("Cheque Payable"), 'xss_clean|trim|required');
+        $this->form_validation->set_rules('eni', lang("SSN/ENI"), 'xss_clean|trim|required');
+        $this->form_validation->set_rules('w_9', lang("W-9"), 'xss_clean|trim');
+
+        if (!$payment->w_9 && empty($_FILES['w_9']['name'])) {
+            $this->form_validation->set_rules('w_9', lang("W-9 Attachment"),  'required');
+        }
+        if ($this->form_validation->run() == true) {
+            $file_path = $payment->w_9;
+            if ($_FILES['w_9']['size'] > 0) {
+                $file_path = $this->file_upload('assets/uploads/notary_payment', 'w_9');
+//                unlink('assets/uploads/notary_commission/' . $file_path);
+//                $file_path = $file_path_new;
+            }
+
+            $notary_data = array(
+                'cheque_payable' => $this->input->post('cheque_payable'),
+                'eni' => $this->input->post('eni'),
+                'w_9' =>$file_path,
+                'updated_date' => date('Y-m-d h:i:s'),
+                'updated_by' => $this->session->userdata('user_id'),
+                'notary_id' => $id
+            );
+        }
+
+        if ($this->form_validation->run() == true && $this->notaries_model->addNotaryPayment($notary_data, $id)) {
+            $this->session->set_flashdata('message', 'information successfully updated.');
+        }
+        $this->data['notary'] = $pr_details;
+        $this->data['notary_commission'] = $pr_commission_details;
+        $this->data['e_notary_commission'] = $pr_e_commission_details;
+        $this->data['producer_license'] = $producer_license;
+        $this->data['bar_license'] = $bar_license;
+        $this->data['background_check'] = $background_check;
+        $this->data['insurance'] = $insurance;
+        $this->data['training'] = $training;
+        $this->data['user'] = $usr_details;
+        $this->data['payment'] = $payment;
+        $this->data['error'] = (validation_errors() ? validation_errors() : $this->session->flashdata('error'));
+//        $this->data['csrf'] = $this->_get_csrf_nonce();
+        $this->data['nav'] = 'payment';
+        $bc = array(array('link' => base_url('home'), 'page' => lang('home')), array('link' => admin_url('notaries'), 'page' => lang('Notaries')), array('link' => '#', 'page' => lang('Edit_Notary')));
+        $meta = array('page_title' => lang('Notaries'), 'bc' => $bc);
+        $this->page_construct('notaries/edit_notary', $meta, $this->data);
+
+    }
+
     function sendEmail($name, $email, $password)
     {
         $message = "";
@@ -608,16 +973,23 @@ class Notaries extends MY_Controller
                 redirect($_SERVER["HTTP_REFERER"]);
             }
         }
-        $pr_details = $this->notaries_model->getClientByID($id);
+        $pr_details = $this->notaries_model->getNotaryByID($id);
+
         if (!$id || !$pr_details) {
-            $this->session->set_flashdata('error', lang('Client_Not_Found'));
+            $this->session->set_flashdata('error', lang('Notary_Not_Found'));
             $this->sma->md();
         }
-        $updated_by = null;
-        $this->data['client'] = $pr_details;
+        $this->data['notary'] = $pr_details;
+        $this->data['notary_commission'] = $this->notaries_model->getNotaryCommissionByID($pr_details->id);
+        $this->data['e_notary_commission'] = $this->notaries_model->getNotaryECommissionByID($pr_details->id);
+        $this->data['producer_license'] =  $this->notaries_model->getProducerLicenseByID($pr_details->id);
+        $this->data['bar_license'] = $this->notaries_model->getBarLicenseByID($pr_details->id);
+        $this->data['background_check'] = $this->notaries_model->getBackgroundCheckByID($pr_details->id);
+        $this->data['insurance'] = $this->notaries_model->getInsuranceByID($pr_details->id);
+        $this->data['training'] = $this->notaries_model->getTrainingByID($pr_details->id);
         $this->data['user'] = $this->site->getUsersByID($pr_details->user_id);
-        $this->data['updated_by'] = $updated_by;
-        $this->load->view($this->theme . 'clients/modal_view', $this->data);
+        $this->data['payment'] = $this->notaries_model->getPaymentByID($pr_details->id);
+        $this->load->view($this->theme . 'notaries/modal_view', $this->data);
     }
 
 
@@ -638,11 +1010,11 @@ class Notaries extends MY_Controller
             $id = $this->input->get('id');
         }
 
-        $pr_details = $this->notaries_model->getClientByID($id);
+        $pr_details = $this->notaries_model->getNotaryByID($id);
         $usr_details = $this->site->getUsersByID($pr_details->user_id);
-        if ($this->notaries_model->deleteClient($id, $usr_details->id)) {
-            unlink('assets/uploads/avatars/' . $usr_details->avatar);
-            unlink('assets/uploads/avatars/thumbs/' . $usr_details->avatar);
+        if ($this->notaries_model->deleteNotary($id, $usr_details->id)) {
+//            unlink('assets/uploads/avatars/' . $usr_details->avatar);
+//            unlink('assets/uploads/avatars/thumbs/' . $usr_details->avatar);
             $this->sma->send_json(array('error' => 0, 'msg' => lang("Information_Deleted_Successfully.")));
         } else {
             $this->sma->send_json(array('error' => 1, 'msg' => lang("Operation_Not_Success")));

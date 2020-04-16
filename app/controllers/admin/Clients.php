@@ -89,14 +89,14 @@ class Clients extends MY_Controller
         $this->data['title'] = "Add Client";
         $this->load->helper('security');
         $this->form_validation->set_rules('username', lang("username"), 'xss_clean|trim|required|is_unique[users.username]');
-        $this->form_validation->set_rules('company_email', lang("company_email"), 'xss_clean|trim|required|is_unique[users.email]');
-        $this->form_validation->set_rules('contact_email', lang("contact_email"), 'xss_clean|trim|required|is_unique[users.email]');
+        $this->form_validation->set_rules('company_email', lang("company_email"), 'xss_clean|trim|required|is_unique[users.email]|valid_email');
+        $this->form_validation->set_rules('contact_email', lang("contact_email"), 'xss_clean|trim|required|is_unique[users.email]|valid_email');
         $this->form_validation->set_rules('company_name', lang("company_name"), 'xss_clean|trim|required');
         $this->form_validation->set_rules('tin', lang("tin"), 'xss_clean|trim|required');
         $this->form_validation->set_rules('note', lang("note"), 'xss_clean|trim');
-        $this->form_validation->set_rules('company_phone', lang("company_phone"), 'xss_clean|trim|required');
-        $this->form_validation->set_rules('contact_phone', lang("contact_phone"), 'xss_clean|trim|required');
-        $this->form_validation->set_rules('company_fax', lang("company_fax"), 'xss_clean|trim|required');
+        $this->form_validation->set_rules('company_phone', lang("company_phone"), 'xss_clean|trim|required|regex_match[/^\+?[0-9-()]+$/]');
+        $this->form_validation->set_rules('contact_phone', lang("contact_phone"), 'xss_clean|trim|required|regex_match[/^\+?[0-9-()]+$/]l');
+        $this->form_validation->set_rules('company_fax', lang("company_fax"), 'xss_clean|trim|required|regex_match[/^\+?[0-9-()]+$/]');
         $this->form_validation->set_rules('company_type', lang("company_type"), 'xss_clean|trim|required');
         $this->form_validation->set_rules('receive_invoices', lang("receive_invoices"), 'xss_clean|trim|required');
         $this->form_validation->set_rules('company_address', lang("company_address"), 'xss_clean|trim|required');
@@ -197,10 +197,12 @@ class Clients extends MY_Controller
         $this->load->helper('security');
         $this->form_validation->set_rules('company_name', lang("company_name"), 'xss_clean|trim|required');
         $this->form_validation->set_rules('tin', lang("tin"), 'xss_clean|trim|required');
+        $this->form_validation->set_rules('company_email', lang("company email"), 'trim|required|valid_email');
+        $this->form_validation->set_rules('contact_email', lang("contact email"), 'trim|required|valid_email');
         $this->form_validation->set_rules('note', lang("note"), 'xss_clean|trim');
-        $this->form_validation->set_rules('company_phone', lang("company_phone"), 'xss_clean|trim|required');
-        $this->form_validation->set_rules('contact_phone', lang("contact_phone"), 'xss_clean|trim|required');
-        $this->form_validation->set_rules('company_fax', lang("company_fax"), 'xss_clean|trim|required');
+        $this->form_validation->set_rules('company_phone', lang("company_phone"), 'xss_clean|trim|required|regex_match[/^\+?[0-9-()]+$/]');
+        $this->form_validation->set_rules('contact_phone', lang("contact_phone"), 'xss_clean|trim|required|regex_match[/^\+?[0-9-()]+$/]');
+        $this->form_validation->set_rules('company_fax', lang("company_fax"), 'xss_clean|trim|required|regex_match[/^\+?[0-9-()]+$/]');
         $this->form_validation->set_rules('company_type', lang("company_type"), 'xss_clean|trim|required');
         $this->form_validation->set_rules('receive_invoices', lang("receive_invoices"), 'xss_clean|trim|required');
         $this->form_validation->set_rules('company_address', lang("company_address"), 'xss_clean|trim|required');
@@ -208,7 +210,7 @@ class Clients extends MY_Controller
         $this->form_validation->set_rules('first_name', lang("first_name"), 'trim|required');
         $this->form_validation->set_rules('last_name', lang("last_name"), 'trim|required');
         if ($usr_details->email != $this->input->post('company_email')) {
-            $this->form_validation->set_rules('company_email', lang("company_email"), 'trim|required|is_unique[users.email]');
+            $this->form_validation->set_rules('company_email', lang("company_email"), 'is_unique[users.email]|valid_email');
         }
 
         if ($this->form_validation->run() == true) {

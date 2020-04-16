@@ -1,5 +1,5 @@
 <style>
-    .client_link {
+    .notary_link {
         cursor: pointer;
     }
 
@@ -51,7 +51,7 @@
             'fnRowCallback': function (nRow, aData, iDisplayIndex) {
                 var oSettings = oTable.fnSettings();
                 nRow.id = aData[0];
-                nRow.className = "client_link";
+                nRow.className = "notary_link";
                 return nRow;
             },
             "aoColumns": [{
@@ -60,23 +60,22 @@
             }, {
                 "bSortable": false,
                 "mRender": notary_img_hl
-            }, {"mRender": ref_status}, {"mRender": name_status}, null, null, null,null, null,  {"bSortable": false}]
+            }, {"mRender": ref_status}, {"mRender": name_status}, null, null, null, null,  {"bSortable": false}]
         }).fnSetFilteringDelay().dtFilter([
-            {column_number: 2, filter_default_label: "[<?=lang('Client_Code');?>]", filter_type: "text", data: []},
-            {column_number: 3, filter_default_label: "[<?=lang('Company_Name');?>]", filter_type: "text", data: []},
-            {column_number: 4, filter_default_label: "[<?=lang('Company_Type');?>]", filter_type: "text", data: []},
-            {column_number: 5, filter_default_label: "[<?=lang('Tax_Identification_NO');?>]", filter_type: "text", data: []},
-            {column_number: 6, filter_default_label: "[<?=lang('Email');?>]", filter_type: "text", data: []},
-            {column_number: 7, filter_default_label: "[<?=lang('Phone');?>]", filter_type: "text", data: []},
+            {column_number: 2, filter_default_label: "[<?=lang('Notary_Code');?>]", filter_type: "text", data: []},
+            {column_number: 3, filter_default_label: "[<?=lang('Name');?>]", filter_type: "text", data: []},
+            {column_number: 4, filter_default_label: "[<?=lang('Email');?>]", filter_type: "text", data: []},
+            {column_number: 5, filter_default_label: "[<?=lang('Phone');?>]", filter_type: "text", data: []},
+            {column_number: 6, filter_default_label: "[<?=lang('Address');?>]", filter_type: "text", data: []},
             {
-                column_number: 8,
+                column_number: 7,
                 filter_default_label: "[<?=lang('Contact_Person');?>]",
                 filter_type: "text",
                 data: []
             }], "footer");
     });
 </script>
-<style>.table td:nth-child(9) {
+<style>.table td:nth-child(8) {
         text-align: right;
         width: 10%;
     }
@@ -95,7 +94,7 @@
                                                                                   data-placement="left"
                                                                                   title="<?= lang("actions") ?>"></i></a>
                     <ul class="dropdown-menu pull-right tasks-menus" role="menu" aria-labelledby="dLabel">
-                        <li><a href="<?= admin_url('clients/add'); ?>"><i
+                        <li><a href="<?= admin_url('notaries/add'); ?>"><i
                                         class="fa fa-plus-circle"></i> <?= lang("Add_Notary"); ?></a></li>
                     </ul>
                 </li>
@@ -116,13 +115,12 @@
                                 <input class="checkbox checkth" type="checkbox" name="check"/>
                             </th>
                             <th class="col-xs-1"><?php echo lang('Image'); ?></th>
-                            <th class="col-xs-1"><?php echo lang('Client_Code'); ?></th>
-                            <th class="col-xs-2"><?php echo lang('Company_Name'); ?></th>
-                            <th class="col-xs-2"><?php echo lang('Company_Type'); ?></th>
-                            <th class="col-xs-2"><?php echo lang('Tax_Identification_NO'); ?></th>
-                            <th class="col-xs-1"><?php echo lang('Company_Email'); ?></th>
-                            <th class="col-xs-1"><?php echo lang('Company_Phone'); ?></th>
-                            <th class="col-xs-2"><?php echo lang('Contact_Person'); ?></th>
+                            <th class="col-xs-1"><?php echo lang('Notary_Code'); ?></th>
+                            <th class="col-xs-2"><?php echo lang('Name'); ?></th>
+                            <th class="col-xs-2"><?php echo lang('Email'); ?></th>
+                            <th class="col-xs-2"><?php echo lang('Phone'); ?></th>
+                            <th class="col-xs-2"><?php echo lang('Address'); ?></th>
+                            <th class="col-xs-1"><?php echo lang('Created_Date'); ?></th>
                             <th style="width:80px;"><?php echo lang('actions'); ?></th>
                         </tr>
                         </thead>
@@ -136,7 +134,6 @@
                             <th style="min-width:30px; width: 30px; text-align: center;">
                                 <input class="checkbox checkft" type="checkbox" name="check"/>
                             </th>
-                            <th></th>
                             <th></th>
                             <th></th>
                             <th></th>

@@ -340,6 +340,38 @@
                                                 </ul>
                                             </li>
                                         <?php } ?>
+                                        <?php if ($GP['notaries-index'] || $GP['notaries-add']) { ?>
+                                            <li class="mm_notaries">
+                                                <a class="dropmenu" href="#">
+                                                    <i class="fa fa-user-md"></i>
+                                                    <span class="text"> <?= lang('Notaries'); ?> </span>
+                                                    <span class="chevron closed"></span>
+                                                </a>
+                                                <ul>
+                                                    <?php if ($GP['notaries-index']) { ?>
+                                                        <li id="notaries_index">
+                                                            <a class="submenu"
+                                                               href="<?= admin_url('notaries'); ?>">
+                                                                <i class="fa fa-users"></i><span
+                                                                        class="text"> <?= lang('List_Notaries'); ?></span>
+                                                            </a>
+                                                        </li>
+
+                                                    <?php } ?>
+
+                                                    <?php if ($GP['notaries-add']) { ?>
+                                                        <li id="notaries_add">
+                                                            <a class="submenu"
+                                                               href="<?= admin_url('notaries/add'); ?>">
+                                                                <i class="fa fa-user-plus"></i><span
+                                                                        class="text"> <?= lang('Add_Notary'); ?></span>
+                                                            </a>
+                                                        </li>
+
+                                                    <?php } ?>
+                                                </ul>
+                                            </li>
+                                        <?php } ?>
                                     <?php } ?>
                                 </ul>
                             </div>
@@ -401,4 +433,4 @@
                                             <?php }
                                         }
                                     } ?>
-                                    <div class="alerts-con"></div>
+<!--                                    <div class="alerts-con"></div>-->

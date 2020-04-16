@@ -1,36 +1,45 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed'); ?>
 
 
-<!--<ul id="myTab33" class="nav nav-tabs">-->
-<!--    <li role="presentation" class=""><a href="#avatar" class="tab-grey">--><?//= lang('Electronic_Commission') ?><!--</a></li>-->
-<!--    <li role="presentation" class=""><a href="#avatar" class="tab-grey">--><?//= lang('Producer_License') ?><!--</a></li>-->
-<!--    <li role="presentation" class=""><a href="#avatar" class="tab-grey">--><?//= lang('Bar_License') ?><!--</a></li>-->
-<!--    <li role="presentation" class=""><a href="#avatar" class="tab-grey">--><?//= lang('Background_Check') ?><!--</a></li>-->
-<!--    <li role="presentation" class=""><a href="#avatar" class="tab-grey">--><?//= lang('Error_&_Omissions_Insurance') ?><!--</a></li>-->
-<!--    <li role="presentation" class=""><a href="#avatar" class="tab-grey">--><?//= lang('Training') ?><!--</a></li>-->
-<!--    <li role="presentation" class=""><a href="#avatar" class="tab-grey">--><?//= lang('Payment') ?><!--</a></li>-->
-<!--</ul>-->
-
 <ul class="nav nav-tabs" role="tablist">
     <li role="presentation" class="<?php echo ($nav == "general_information") ? "active" : ''; ?>">
-        <a href="#general_information" aria-controls="profile" role="tab" data-toggle="tab"><?= lang('General_Information') ?></a>
+        <a href="#general_information" aria-controls="profile" role="tab"
+           data-toggle="tab"><?= lang('General_Information') ?></a>
     </li>
     <li role="presentation" class="<?php echo ($nav == "commission") ? "active" : ''; ?>">
         <a href="#commission" aria-controls="profile" role="tab" data-toggle="tab"><?= lang('Commission') ?></a>
     </li>
     <li role="presentation" class="<?php echo ($nav == "electronic_commission") ? "active" : ''; ?>">
-        <a href="#elctronic_commission" aria-controls="profile" role="tab" data-toggle="tab"><?= lang('Electronic_Commission') ?></a>
+        <a href="#elctronic_commission" aria-controls="profile" role="tab"
+           data-toggle="tab"><?= lang('Electronic_Commission') ?></a>
     </li>
     <li role="presentation" class="<?php echo ($nav == "producer_license") ? "active" : ''; ?>">
-        <a href="#producer_license" aria-controls="profile" role="tab" data-toggle="tab"><?= lang('Producer_License') ?></a>
+        <a href="#producer_license" aria-controls="profile" role="tab"
+           data-toggle="tab"><?= lang('Producer_License') ?></a>
     </li>
     <li role="presentation" class="<?php echo ($nav == "bar_license") ? "active" : ''; ?>">
         <a href="#bar_license" aria-controls="profile" role="tab" data-toggle="tab"><?= lang('Bar_License') ?></a>
     </li>
+    <li role="presentation" class="<?php echo ($nav == "background_check") ? "active" : ''; ?>">
+        <a href="#background_check" aria-controls="profile" role="tab"
+           data-toggle="tab"><?= lang('Background_Check') ?></a>
+    </li>
+    <li role="presentation" class="<?php echo ($nav == "insurance") ? "active" : ''; ?>">
+        <a href="#insurance" aria-controls="profile" role="tab"
+           data-toggle="tab"><?= lang('Error_&_Omissions_Insurance') ?></a>
+    </li>
+    <li role="presentation" class="<?php echo ($nav == "training") ? "active" : ''; ?>" style="margin-bottom: 7px;margin-top: 5px;">
+        <a href="#training" aria-controls="profile" role="tab" data-toggle="tab"><?= lang('Training') ?></a>
+    </li>
+    <li role="presentation" class="<?php echo ($nav == "payment") ? "active" : ''; ?>" style="margin-bottom: 7px;margin-top: 5px;">
+        <a href="#payment" aria-controls="profile" role="tab" data-toggle="tab"><?= lang('Payment') ?></a>
+    </li>
 </ul>
 <!-- Tab panes -->
 <div class="tab-content">
-    <div role="tabpanel" class="tab-pane <?php echo ($nav == "general_information") ? "active" : ''; ?>" id="general_information">   <div class="box">
+    <div role="tabpanel" class="tab-pane <?php echo ($nav == "general_information") ? "active" : ''; ?>"
+         id="general_information">
+        <div class="box">
             <div class="box-content">
                 <div class="row">
                     <div class="col-md-12">
@@ -161,8 +170,10 @@
                     </div>
                 </div>
             </div>
-        </div></div>
-    <div role="tabpanel" class="tab-pane <?php echo ($nav == "commission") ? "active" : ''; ?>" id="commission">  <div class="box">
+        </div>
+    </div>
+    <div role="tabpanel" class="tab-pane <?php echo ($nav == "commission") ? "active" : ''; ?>" id="commission">
+        <div class="box">
             <div class="box-content">
                 <div class="row">
                     <div class="col-md-12">
@@ -196,7 +207,7 @@
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <?= lang("Certificate_File_Upload", "Certificate_File_Upload")." *"; ?>
+                                            <?= lang("Certificate_File_Upload", "Certificate_File_Upload") . " *"; ?>
                                             <input type="file" data-browse-label="<?= lang('browse'); ?>"
                                                    name="certificate_attachment"
                                                    id="certificate_attachment"
@@ -217,8 +228,11 @@
                     </div>
                 </div>
             </div>
-        </div></div>
-    <div role="tabpanel" class="tab-pane <?php echo ($nav == "electronic_commission") ? "active" : ''; ?>" id="elctronic_commission">  <div class="box">
+        </div>
+    </div>
+    <div role="tabpanel" class="tab-pane <?php echo ($nav == "electronic_commission") ? "active" : ''; ?>"
+         id="elctronic_commission">
+        <div class="box">
             <div class="box-content">
                 <div class="row">
                     <div class="col-md-12">
@@ -252,7 +266,7 @@
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <?= lang("Certificate_File_Upload", "Certificate_Certificate_File_Upload")." *"; ?>
+                                            <?= lang("Certificate_File_Upload", "Certificate_File_Upload") . " *"; ?>
                                             <input type="file" data-browse-label="<?= lang('browse'); ?>"
                                                    name="e_certificate_attachment"
                                                    id="e_certificate_attachment"
@@ -273,8 +287,11 @@
                     </div>
                 </div>
             </div>
-        </div></div>
-    <div role="tabpanel" class="tab-pane <?php echo ($nav == "producer_license") ? "active" : ''; ?>" id="producer_license">  <div class="box">
+        </div>
+    </div>
+    <div role="tabpanel" class="tab-pane <?php echo ($nav == "producer_license") ? "active" : ''; ?>"
+         id="producer_license">
+        <div class="box">
             <div class="box-content">
                 <div class="row">
                     <div class="col-md-12">
@@ -308,7 +325,7 @@
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <?= lang("Certificate_File_Upload", "Certificate_Certificate_File_Upload")." *"; ?>
+                                            <?= lang("Certificate_File_Upload", "Certificate_File_Upload") . " *"; ?>
                                             <input type="file" data-browse-label="<?= lang('browse'); ?>"
                                                    name="p_certificate_attachment"
                                                    id="p_certificate_attachment"
@@ -329,8 +346,10 @@
                     </div>
                 </div>
             </div>
-        </div></div>
-    <div role="tabpanel" class="tab-pane <?php echo ($nav == "bar_license") ? "active" : ''; ?>" id="bar_license">  <div class="box">
+        </div>
+    </div>
+    <div role="tabpanel" class="tab-pane <?php echo ($nav == "bar_license") ? "active" : ''; ?>" id="bar_license">
+        <div class="box">
             <div class="box-content">
                 <div class="row">
                     <div class="col-md-12">
@@ -364,7 +383,7 @@
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <?= lang("Certificate_File_Upload", "Certificate_Certificate_File_Upload")." *"; ?>
+                                            <?= lang("Certificate_File_Upload", "Certificate_Certificate_File_Upload") . " *"; ?>
                                             <input type="file" data-browse-label="<?= lang('browse'); ?>"
                                                    name="b_certificate_attachment"
                                                    id="b_certificate_attachment"
@@ -385,7 +404,245 @@
                     </div>
                 </div>
             </div>
-        </div></div>
-</div>
+        </div>
+    </div>
+    <div role="tabpanel" class="tab-pane <?php echo ($nav == "background_check") ? "active" : ''; ?>"
+         id="background_check">
+        <div class="box">
+            <div class="box-content">
+                <div class="row">
+                    <div class="col-md-12">
+                        <?php $attrib = array('class' => 'form-horizontal', 'data-toggle' => 'validator', 'role' => 'form');
+                        echo admin_form_open_multipart("notaries/edit_background_check/" . $notary->id, $attrib);
+                        ?>
+                        <div class="row">
+                            <fieldset class="scheduler-border">
+                                <legend style="text-align: center" class="scheduler-border"><i
+                                            class="fa-fw fa fa-th"></i> <b>Background Check</b></legend>
+                                <div class="col-md-12">
+                                    <div class="col-md-5 ">
+                                        <div class="form-group">
+                                            <?php echo lang('Company', 'Company') . '<b> *</b>'; ?>
+                                            <div class="controls">
+                                                <?php echo form_input('company', (isset($_POST['company']) ? $_POST['company'] : $background_check->company), 'class="form-control" id="company" required="required"'); ?>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <?php echo lang('Issue_Date', 'Issue_Date') . '<b> *</b>'; ?>
+                                            <div class="controls">
+                                                <?php echo form_input('issue_date', (isset($_POST['issue_date']) ? $_POST['issue_date'] : $this->sma->hrsd($background_check->issue_date)), 'class="form-control date" id="issue_date" required="required"'); ?>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-5 col-md-offset-1">
+                                        <div class="form-group">
+                                            <?php echo lang('URL', 'URL') . '<b> *</b>'; ?>
+                                            <div class="controls">
+                                                <?php echo form_input('url', (isset($_POST['url']) ? $_POST['url'] : $background_check->url), 'class="form-control" id="url" required="required"'); ?>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <?= lang("Background_Check", "Background_Check") . " *"; ?>
+                                            <input type="file" data-browse-label="<?= lang('browse'); ?>"
+                                                   name="background_check"
+                                                   id="background_check"
+                                                   data-show-upload="false" data-show-preview="false" accept="pdf/*"
+                                                   class="form-control file"/>
+                                        </div>
+                                    </div>
 
+                                </div>
+                            </fieldset>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <p><?php echo form_submit('edit_background_check', lang('Edit_Background_Check'), 'class="btn btn-primary"'); ?></p>
+                                <?php echo form_close(); ?>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div role="tabpanel" class="tab-pane <?php echo ($nav == "insurance") ? "active" : ''; ?>" id="insurance">
+        <div class="box">
+            <div class="box-content">
+                <div class="row">
+                    <div class="col-md-12">
+                        <?php $attrib = array('class' => 'form-horizontal', 'data-toggle' => 'validator', 'role' => 'form');
+                        echo admin_form_open_multipart("notaries/edit_insurance/" . $notary->id, $attrib);
+                        ?>
+                        <div class="row">
+                            <fieldset class="scheduler-border">
+                                <legend style="text-align: center" class="scheduler-border"><i
+                                            class="fa-fw fa fa-th"></i> <b>Error & Omissions Insurance</b></legend>
+                                <div class="col-md-12">
+                                    <div class="col-md-5 ">
+                                        <div class="form-group">
+                                            <?php echo lang('Company', 'Company') . '<b> *</b>'; ?>
+                                            <div class="controls">
+                                                <?php echo form_input('i_company', (isset($_POST['i_company']) ? $_POST['i_company'] : $insurance->i_company), 'class="form-control" id="i_company" required="required"'); ?>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <?php echo lang('Policy_Number', 'Policy_Number') . '<b> *</b>'; ?>
+                                            <div class="controls">
+                                                <?php echo form_input('i_policy_number', (isset($_POST['i_policy_number']) ? $_POST['i_policy_number'] : $insurance->i_company), 'class="form-control" id="i_policy_number" required="required"'); ?>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <?php echo lang('Issue_Date', 'Issue_Date') . '<b> *</b>'; ?>
+                                            <div class="controls">
+                                                <?php echo form_input('i_expiration_date', (isset($_POST['i_expiration_date']) ? $_POST['i_expiration_date'] : $this->sma->hrsd($insurance->i_expiration_date)), 'class="form-control date" id="i_expiration_date" required="required"'); ?>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-5 col-md-offset-1">
+                                        <div class="form-group">
+                                            <?php echo lang('Amount', 'Amount') . '<b> *</b>'; ?>
+                                            <div class="controls">
+                                                <?php echo form_input('i_amount', (isset($_POST['i_amount']) ? $_POST['i_amount'] : $insurance->i_amount), 'class="form-control" id="i_amount" required="required"'); ?>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <?= lang("Background_Check", "Background_Check") . " *"; ?>
+                                            <input type="file" data-browse-label="<?= lang('browse'); ?>"
+                                                   name="i_background_check"
+                                                   id="i_background_check"
+                                                   data-show-upload="false" data-show-preview="false" accept="pdf/*"
+                                                   class="form-control file"/>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </fieldset>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <p><?php echo form_submit('edit_insurance', lang('Edit_Insurance'), 'class="btn btn-primary"'); ?></p>
+                                <?php echo form_close(); ?>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div role="tabpanel" class="tab-pane <?php echo ($nav == "training") ? "active" : ''; ?>" id="training">
+        <div class="box">
+            <div class="box-content">
+                <div class="row">
+                    <div class="col-md-12">
+                        <?php $attrib = array('class' => 'form-horizontal', 'data-toggle' => 'validator', 'role' => 'form', 'id'=>'training_form');
+                        echo admin_form_open_multipart("notaries/edit_training/" . $notary->id, $attrib);
+                        ?>
+                        <div class="row">
+                            <fieldset class="scheduler-border">
+                                <legend style="text-align: center" class="scheduler-border"><i
+                                            class="fa-fw fa fa-th"></i> <b>Training Certification</b></legend>
+                                <div class="col-md-12">
+                                    <div class="col-md-5 ">
+                                        <div class="form-group">
+                                            <input type="radio" class="checkbox type" value="Loan Signing System" name="training" id="loan_signing" <?= ($training->training=='Loan Signing System' ? 'checked="checked"' : ''); ?> required="required">
+                                            <label for="featured" class="padding05"><?= lang('Loan_Signing_System') ?></label>
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="radio" class="checkbox type" value="Notary2pro" name="training" id="notary_pro" <?= ($training->training=='Notary2pro' ? 'checked="checked"' : ''); ?> required="required">
+                                            <label for="featured" class="padding05"><?= lang('Notary2pro') ?></label>
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="radio" class="checkbox type" value=123Notary" name="training" id="notary_123" <?= ($training->training=='123Notary' ? 'checked="checked"' : ''); ?> required="required">
+                                            <label for="featured" class="padding05"><?= lang('123Notary') ?></label>
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="radio" class="checkbox type" value=Other" name="training" id="other" <?= ($training->training=='Other' ? 'checked="checked"' : ''); ?> required="required">
+                                            <label for="featured" class="padding05"><?= lang('Other') ?></label>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <?= lang("Training_Certificate", "Training_Certificate") . " *"; ?>
+                                            <input type="file" data-browse-label="<?= lang('browse'); ?>"
+                                                   name="training_certificate"
+                                                   id="training_certificate"
+                                                   data-show-upload="false" data-show-preview="false" accept="pdf/*"
+                                                   class="form-control file"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <p><?php echo form_submit('edit_training', lang('Edit_Training'), 'class="btn btn-primary"'); ?></p>
+                                <?php echo form_close(); ?>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div role="tabpanel" class="tab-pane <?php echo ($nav == "payment") ? "active" : ''; ?>" id="payment">
+        <div class="box">
+            <div class="box-content">
+                <div class="row">
+                    <div class="col-md-12">
+                        <?php $attrib = array('class' => 'form-horizontal', 'data-toggle' => 'validator', 'role' => 'form');
+                        echo admin_form_open_multipart("notaries/edit_payment/" . $notary->id, $attrib);
+                        ?>
+                        <div class="row">
+                            <fieldset class="scheduler-border">
+                                <legend style="text-align: center" class="scheduler-border"><i
+                                            class="fa-fw fa fa-th"></i> <b>Payment</b></legend>
+                                <div class="col-md-12">
+                                    <div class="col-md-5 ">
+                                        <div class="form-group">
+                                            <?php echo lang('Make_Cheque_Payable_To', 'Make_Cheque_Payable_To') . '<b> *</b>'; ?>
+                                            <div class="controls">
+                                                <?php echo form_input('cheque_payable', (isset($_POST['cheque_payable']) ? $_POST['cheque_payable'] : $payment->cheque_payable), 'class="form-control" id="cheque_payable" required="required"'); ?>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <?php echo lang('SSE/ENI', 'SSE/ENI') . '<b> *</b>'; ?>
+                                            <div class="controls">
+                                                <?php echo form_input('eni', (isset($_POST['eni']) ? $_POST['eni'] : $payment->eni), 'class="form-control" id="eni" required="required"'); ?>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-5 col-md-offset-1">
+                                        <div class="form-group">
+                                            <?= lang("W-9", "W-9") . " *"; ?>
+                                            <input type="file" data-browse-label="<?= lang('browse'); ?>"
+                                                   name="w_9"
+                                                   id="w_9"
+                                                   data-show-upload="false" data-show-preview="false" accept="pdf/*"
+                                                   class="form-control file"/>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </fieldset>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <p><?php echo form_submit('edit_payment', lang('Edit_Payment'), 'class="btn btn-primary"'); ?></p>
+                                <?php echo form_close(); ?>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $("#training_form input:checkbox").change(function() {
+        $("#training_form input:checkbox").attr("checked", false);
+        $(this).attr("checked", true);
+        console.log( $(this));
+    });
+</script>
 
