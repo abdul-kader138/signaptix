@@ -1,7 +1,7 @@
 <?php
 /**
  * Created by PhpStorm.
- * User: kk
+ * User: codelover138@gmail.com
  * Date: 4/11/2019
  * Time: 9:28 PM
  */
@@ -31,6 +31,21 @@ class Clients_model extends CI_Model
         return true;
     }
 
+    public function addClientJob($data = array(),$images=array())
+    {
+        $this->db->trans_strict(TRUE);
+        $this->db->trans_start();
+        $this->db->insert('sma_clients_job', $data);
+        $this->db->insert_batch('sma_client_documents', $images);
+        $this->db->trans_complete();
+        if ($this->db->trans_status() === FALSE) return false;
+        return true;
+
+
+    }
+
+
+
 
     public function getClientByID($id)
     {
@@ -41,6 +56,43 @@ class Clients_model extends CI_Model
         return FALSE;
     }
 
+    public function getClientJobsByID($id)
+    {
+        $q = $this->db->get_where('clients_job', array('id' => $id), 1);
+        if ($q->num_rows() > 0) {
+            return $q->row();
+        }
+        return FALSE;
+    }
+
+    public function getAllClient()
+    {
+        $user_id = $this->session->userdata('user_id');
+
+        $this->db->select('*')
+            ->from('clients');
+        $this->db->order_by('clients.id', 'asc');
+        if (!$this->Owner && !$this->Admin) $this->db->where('clients.user_id', $user_id);
+        $q = $this->db->get();
+        if ($q->num_rows() > 0) {
+            foreach (($q->result()) as $row) {
+                $data[] = $row;
+            }
+            return $data;
+        }
+
+    }
+
+
+
+    public function getClientByUserID($id)
+    {
+        $q = $this->db->get_where('clients', array('user_id' => $id), 1);
+        if ($q->num_rows() > 0) {
+            return $q->row();
+        }
+        return FALSE;
+    }
     public function getUsersByID($id)
     {
         $q = $this->db->get_where('users', array('id' => $id), 1);
@@ -76,4 +128,33 @@ class Clients_model extends CI_Model
         if ($this->db->trans_status() === FALSE) return false;
         else return true;
     }
+
+
+    public function getClientAllDocuments($order_no)
+    {
+        $this->db->order_by('client_documents.file_name', 'asc');
+        $this->db->where('client_documents.order_no', $order_no);
+        $q = $this->db->get('client_documents');
+        if ($q->num_rows() > 0) {
+            foreach (($q->result()) as $row) {
+                $data[] = $row;
+            }
+            return $data;
+        }
+
+    }
+
+
+    public function deleteClientJobList($id)
+    {
+        $this->db->trans_strict(TRUE);
+        $this->db->trans_start();
+        $this->db->where('id',$id);
+        $this->db->delete('clients_job');
+        $this->db->trans_complete();
+        if ($this->db->trans_status() === FALSE) return false;
+        else return true;
+    }
+
+
 }

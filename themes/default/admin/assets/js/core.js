@@ -1393,7 +1393,17 @@ $('body').on('click', '.notary_link td:not(:first-child, :nth-child(2), :last-ch
     });
     $('#myModal').modal('show');
 });
-
+$('body').on('click', '.client_job_link td:not(:first-child, :nth-child(2), :last-child)', function () {
+    $('#myModal').modal({
+        remote:
+        site.base_url +
+        'clients/job_listing_modal/' +
+        $(this)
+            .parent('.client_job_link')
+            .attr('id'),
+    });
+    $('#myModal').modal('show');
+});
 $('body').on('click', '.coaches_link td:not(:first-child, :nth-child(2), :last-child)', function () {
     $('#myModal').modal({
         remote:

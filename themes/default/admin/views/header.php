@@ -337,6 +337,28 @@
                                                         </li>
 
                                                     <?php } ?>
+
+                                                    <?php if ($GP['clients-index']) { ?>
+                                                        <li id="clients_jobList">
+                                                            <a class="submenu"
+                                                               href="<?= admin_url('clients/jobList'); ?>">
+                                                                <i class="fa fa-th"></i><span
+                                                                        class="text"> <?= lang('List_Of_Job'); ?></span>
+                                                            </a>
+                                                        </li>
+
+                                                    <?php } ?>
+
+                                                    <?php if ($GP['clients-index']) { ?>
+                                                        <li id="clients_addJobList">
+                                                            <a class="submenu"
+                                                               href="<?= admin_url('clients/addJobList'); ?>">
+                                                                <i class="fa fa-plus"></i><span
+                                                                        class="text"> <?= lang('Add_Job'); ?></span>
+                                                            </a>
+                                                        </li>
+
+                                                    <?php } ?>
                                                 </ul>
                                             </li>
                                         <?php } ?>
